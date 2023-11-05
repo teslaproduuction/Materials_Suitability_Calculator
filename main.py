@@ -1,10 +1,5 @@
 import math
-import matplotlib.pyplot as plt
-import numpy as np
 import eel
-import requests
-import os
-import sys, io
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
     return ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))

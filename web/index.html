@@ -1,21 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <script src="/eel.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css.map">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css.map">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css.map">
+    <link rel="stylesheet" href="css/bootstrap-utilities.css">
+    <link rel="stylesheet" href="css/bootstrap-utilities.css.map">
+    <link rel="stylesheet" href="css/bootstrap-utilities.min.css">
+    <link rel="stylesheet" href="css/bootstrap-utilities.min.css.map">
+    <link rel="stylesheet" href="css/bootstrap.css.map">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>potom</title>
 </head>
 <body>
-    <input type="text" id="number" placeholder="Enter a number">
-    <button onclick="getSquare()">Calculate Square</button>
+<body>
+<div class="container">
+    <h2>Ввод значений</h2>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="cValues">с, Дж/(кг×°С) </label>
+                <input type="text" class="form-control" id="cValues" placeholder="с, Дж/(кг×°С) ">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="lambdaValues">Lambda Values</label>
+                <input type="text" class="form-control" id="lambdaValues" placeholder="Enter lambda values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="rhoValues">Rho Values</label>
+                <input type="text" class="form-control" id="rhoValues" placeholder="Enter rho values">
+            </div>
+        </div>
 
-    <p id="result"></p>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="alphaValues">Alpha Values</label>
+                <input type="text" class="form-control" id="alphaValues" placeholder="Enter alpha values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="EValues">E Values</label>
+                <input type="text" class="form-control" id="EValues" placeholder="Enter E values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="HRCValues">HRC Values</label>
+                <input type="text" class="form-control" id="HRCValues" placeholder="Enter HRC values">
+            </div>
+        </div>
 
-    <script>
-        function getSquare() {
-            var number = document.getElementById("number").value;
-            eel.get_square_result(number)(function(result) {
-                document.getElementById("result").innerText = "Result: " + result;
-            });
-        }
-    </script>
+        <div class="form-row">
+            <!-- Добавьте аналогичные блоки для остальных полей -->
+            <!-- Пример для sigma_B_values -->
+            <div class="form-group col-md-4">
+                <label for="sigmaBValues">Sigma B Values</label>
+                <input type="text" class="form-control" id="sigmaBValues" placeholder="Enter sigma B values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="sigma02Values">Sigma 0.2 Values</label>
+                <input type="text" class="form-control" id="sigma02Values" placeholder="Enter sigma 0.2 values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="KSUValues">KSU Values</label>
+                <input type="text" class="form-control" id="KSUValues" placeholder="Enter KSU values">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="deltaValues">Delta Values</label>
+                <input type="text" class="form-control" id="deltaValues" placeholder="Enter delta values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="psiValues">ψ, %</label>
+                <input type="text" class="form-control" id="psiValues" placeholder="ψ, %">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="muValues">Mu Values</label>
+                <input type="text" class="form-control" id="muValues" placeholder="Enter mu values">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="tauValues">Tau Values</label>
+                <input type="text" class="form-control" id="tauValues" placeholder="Enter tau values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="tkValues">t_k Values</label>
+                <input type="text" class="form-control" id="tkValues" placeholder="Enter t_k values">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="tfValues">t_f Values</label>
+                <input type="text" class="form-control" id="tfValues" placeholder="Enter t_f values">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.esm.js.map"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    function getSquare() {
+        var number = document.getElementById("number").value;
+        eel.get_square_result(number)(function (result) {
+            document.getElementById("result").innerText = "Result: " + result;
+        });
+    }
+</script>
 </body>
 </html>
