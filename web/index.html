@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <script src="/eel.js"></script>
 </head>
 <body>
+    <input type="text" id="number" placeholder="Enter a number">
+    <button onclick="getSquare()">Calculate Square</button>
 
+    <p id="result"></p>
+
+    <script>
+        function getSquare() {
+            var number = document.getElementById("number").value;
+            eel.get_square_result(number)(function(result) {
+                document.getElementById("result").innerText = "Result: " + result;
+            });
+        }
+    </script>
 </body>
 </html>

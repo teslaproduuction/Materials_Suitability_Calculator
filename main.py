@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import eel
+import requests
 import os
 import sys, io
 # Функция для вычисления К1
@@ -190,10 +191,19 @@ for i in range(len(c_values)):
     K15_values.append(K15)
     K16_values.append(K16)
 
-# Вывод результатов
+
+def calculate_square(number):
+    return number ** 2
+@eel.expose
+def get_square_result(number):
+    result = calculate_square(int(number))
+    return result
+
+
 
 if __name__ == "__main__":
-
+    eel.init('web')
+    eel.start('index.html', size=(760, 760))
     print("Результаты:")
     for i in range(len(c_values)):
         print(f"Для набора данных {i + 1}:")
@@ -214,5 +224,4 @@ if __name__ == "__main__":
         print(f"К15 = {K15_values[i]}")
         print(f"К16 = {K16_values[i]}")
         print()
-        eel.init('web')
-        eel.start('index.html', size=(760, 760))
+
