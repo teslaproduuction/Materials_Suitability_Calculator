@@ -115,6 +115,7 @@ function calculate() {
         var tkValue = tkValues[i];
         var tfValue = tfValues[i];
 
+
         eel.add_to_array(cValue, lambdaValue, roValue, alphaValue, eValue, hrcValue, sigmaValue, sigmaValue2, kcuValue, deltaValue, psiValue, muValue, tauValue, tkValue, tfValue)(function (K1_values, K2_values, K3_values, K4_values, K5_values, K6_values, K7_values, K8_values, K9_values, K10_values, K11_values, K12_values, K13_values, K14_values, K15_values, K16_values) {
         });
 
@@ -122,7 +123,30 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
-            document.getElementById("result").innerText = "Result: " + get_result;
+            console.log(get_result)
+
+            var K1 = get_result[0][0];
+            var K2 = get_result[1];
+            var K3 = get_result[2];
+            var K4 = get_result[3];
+            var K5 = get_result[4];
+            var K6 = get_result[5];
+            var K7 = get_result[6];
+            var K8 = get_result[7];
+            var K9 = get_result[8];
+            var K10 = get_result[9];
+            var K11 = get_result[10];
+            var K12 = get_result[11];
+            var K13 = get_result[12];
+            var K14 = get_result[13];
+            var K15 = get_result[14];
+            var K16 = get_result[15];
+
+
+            var result_text = "K1 = " + K1 + "\n" + "K2 = " + K2 + "\n" + "K3 = " + K3 + "\n" + "K4 = " + K4 + "\n" + "K5 = " + K5 + "\n" + "K6 = " + K6 + "\n" + "K7 = " + K7 + "\n" + "K8 = " + K8 + "\n" + "K9 = " + K9 + "\n" + "K10 = " + K10 + "\n" + "K11 = " + K11 + "\n" + "K12 = " + K12 + "\n" + "K13 = " + K13 + "\n" + "K14 = " + K14 + "\n" + "K15 = " + K15 + "\n" + "K16 = " + K16 + "\n";
+            document.getElementById("result").innerText = result_text;
+
+
         }
     );
 
