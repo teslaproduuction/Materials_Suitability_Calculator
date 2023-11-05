@@ -1,6 +1,9 @@
 import math
-
-
+import matplotlib.pyplot as plt
+import numpy as np
+import eel
+import os
+import sys, io
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
     return ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
@@ -190,6 +193,7 @@ for i in range(len(c_values)):
 # Вывод результатов
 
 if __name__ == "__main__":
+
     print("Результаты:")
     for i in range(len(c_values)):
         print(f"Для набора данных {i + 1}:")
@@ -210,3 +214,5 @@ if __name__ == "__main__":
         print(f"К15 = {K15_values[i]}")
         print(f"К16 = {K16_values[i]}")
         print()
+        eel.init('web')
+        eel.start('index.html', size=(760, 760))
