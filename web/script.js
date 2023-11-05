@@ -98,6 +98,7 @@ function calculate() {
     console.log(cValues.length)
 
     for (var i = 0; i < cValues.length; i++) {
+
         var cValue = cValues[i];
         var lambdaValue = lambdaValues[i];
         var roValue = roValues[i];
@@ -115,9 +116,15 @@ function calculate() {
         var tfValue = tfValues[i];
 
         eel.add_to_array(cValue, lambdaValue, roValue, alphaValue, eValue, hrcValue, sigmaValue, sigmaValue2, kcuValue, deltaValue, psiValue, muValue, tauValue, tkValue, tfValue)(function (K1_values, K2_values, K3_values, K4_values, K5_values, K6_values, K7_values, K8_values, K9_values, K10_values, K11_values, K12_values, K13_values, K14_values, K15_values, K16_values) {
-            document.getElementById("result").innerText = "Result: " + K1_values + " " + K2_values + " " + K3_values + " " + K4_values + " " + K5_values + " " + K6_values + " " + K7_values + " " + K8_values + " " + K9_values + " " + K10_values + " " + K11_values + " " + K12_values + " " + K13_values + " " + K14_values + " " + K15_values + " " + K16_values;
         });
+
+        console.log("Цикл выполнися " + i + " раз")
     }
+
+    eel.get_result()(function (get_result) {
+            document.getElementById("result").innerText = "Result: " + get_result;
+        }
+    );
 
     // console.log(value)
     // eel.get_square_result(value)(function (result) {
@@ -130,6 +137,13 @@ function addNewColumn() {
     var table = document.getElementById("myTable");
     var rowCount = table.rows.length;
 
+    for (var i = 0; i < rowCount; i++) {
+        var cell = table.rows[i].insertCell(-1);
+        var rowId = i + 1;
+        var cellId = "row" + rowId + "col" + columnIndex;
+        cell.innerHTML = "<input type='text' class='form-control' id='" + cellId + "'>";
+    }
+    columnIndex++;
     for (var i = 0; i < rowCount; i++) {
         var cell = table.rows[i].insertCell(-1);
         var rowId = i + 1;

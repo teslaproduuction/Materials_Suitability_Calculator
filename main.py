@@ -167,26 +167,44 @@ K14_values = []
 K15_values = []
 K16_values = []
 
+
+def print_K():
+    print(K1_values)
+    print(K2_values)
+    print(K3_values)
+    print(K4_values)
+    print(K5_values)
+    print(K6_values)
+    print(K7_values)
+    print(K8_values)
+    print(K9_values)
+    print(K10_values)
+    print(K11_values)
+    print(K12_values)
+    print(K13_values)
+    print(K14_values)
+    print(K15_values)
+    print(K16_values)
+
+
 @eel.expose
 def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_value, sigma_B_value, sigma_0_2_value,
                  KSU_value, delta_value, psi_value, mu_value, tau_value, t_k_value, t_f_value):
-    # c_values = []
-    # lambda_values = []
-    # rho_values = []
-    # alpha_values = []
-    # E_values = []
-    # HRC_values = []
-    # sigma_B_values = []
-    # sigma_0_2_values = []
-    # KSU_values = []
-    # delta_values = []
-    # psi_values = []
-    # mu_values = []
-    # tau_values = []
-    # t_k_values = []
-    # t_f_values = []
-
-    print(len(c_values))
+    c_values = []
+    lambda_values = []
+    rho_values = []
+    alpha_values = []
+    E_values = []
+    HRC_values = []
+    sigma_B_values = []
+    sigma_0_2_values = []
+    KSU_values = []
+    delta_values = []
+    psi_values = []
+    mu_values = []
+    tau_values = []
+    t_k_values = []
+    t_f_values = []
 
     c_values.append(float(c_value))
     lambda_values.append(float(lambda_value))
@@ -203,6 +221,8 @@ def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_val
     tau_values.append(float(tau_value))
     t_k_values.append(float(t_k_value))
     t_f_values.append(float(t_f_value))
+
+    print(len(c_values))
 
     # Вычисление и сохранение результатов в массивы
     for i in range(len(c_values)):
@@ -250,41 +270,11 @@ def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_val
         K15_values.append(K15)
         K16_values.append(K16)
 
-    print(K1_values)
-
-    return K1_values, K2_values, K3_values, K4_values, K5_values, K6_values, K7_values, K8_values, K9_values, K10_values, K11_values, K12_values, K13_values, K14_values, K15_values, K16_values
-
-
-def calculate_square(number):
-    return number ** 2
-
-
 @eel.expose
-def get_square_result(number):
-    result = calculate_square(float(number))
-    return result
+def get_result():
+    return K1_values, K2_values, K3_values, K4_values, K5_values, K6_values, K7_values, K8_values, K9_values, K10_values, K11_values, K12_values, K13_values, K14_values, K15_values, K16_values
 
 
 if __name__ == "__main__":
     eel.init('web')
     eel.start('index.html', mode='Arc', size=(760, 760))
-    print("Результаты:")
-    for i in range(len(c_values)):
-        print(f"Для набора данных {i + 1}:")
-        print(f"К1 = {K1_values[i]}")
-        print(f"К2 = {K2_values[i]}")
-        print(f"К3 = {K3_values[i]}")
-        print(f"К4 = {K4_values[i]}")
-        print(f"К5 = {K5_values[i]}")
-        print(f"К6 = {K6_values[i]}")
-        print(f"К7 = {K7_values[i]}")
-        print(f"К8 = {K8_values[i]}")
-        print(f"К9 = {K9_values[i]}")
-        print(f"К10 = {K10_values[i]}")
-        print(f"К11 = {K11_values[i]}")
-        print(f"К12 = {K12_values[i]}")
-        print(f"К13 = {K13_values[i]}")
-        print(f"К14 = {K14_values[i]}")
-        print(f"К15 = {K15_values[i]}")
-        print(f"К16 = {K16_values[i]}")
-        print()
