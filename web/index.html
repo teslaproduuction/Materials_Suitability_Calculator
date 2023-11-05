@@ -2,18 +2,9 @@
 <html lang="ru">
 <head>
     <link rel="stylesheet" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.css.map">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css.map">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css.map">
-    <link rel="stylesheet" href="css/bootstrap-utilities.css">
-    <link rel="stylesheet" href="css/bootstrap-utilities.css.map">
-    <link rel="stylesheet" href="css/bootstrap-utilities.min.css">
-    <link rel="stylesheet" href="css/bootstrap-utilities.min.css.map">
-    <link rel="stylesheet" href="css/bootstrap.css.map">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <meta charset="UTF-8">
     <title>potom</title>
 </head>
 <body>
@@ -102,23 +93,84 @@
             </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button onclick="calculate()" class="btn btn-primary">Submit</button>
     </form>
     <button onclick="addNewColumn()">Добавить столбец</button>
 </div>
 
 
 <script src="js/bootstrap.bundle.js"></script>
-<script src="js/bootstrap.esm.js.map"></script>
 <script src="js/bootstrap.js"></script>
 <script>
+    var columnIndex = 4;
+    var cValues = [];
+    var lambdaValues = [];
+    var roValues = [];
+    var alphaValues = [];
+    var eValues = [];
+    var hrcValues = [];
+    var sigmaValues = [];
+    var kcuValues = [];
+    var deltaValues = [];
+    var psiValues = [];
+    var muValues = [];
+    var tauValues = [];
+    var tkValues = [];
+    var tfValues = [];
+
+
     function getSquare() {
         var number = document.getElementById("number").value;
         eel.get_square_result(number)(function (result) {
             document.getElementById("result").innerText = "Result: " + result;
         });
     }
-    var columnIndex = 4;
+
+
+    function calculate() {
+        var table = document.getElementById("myTable");
+        var rowCount = table.rows.length;
+        var columnCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < rowCount; i++) {
+            var rowId = i + 1;
+            var cId = "row" + rowId + "col2";
+            var lambdaId = "row" + rowId + "col3";
+            var roId = "row" + rowId + "col4";
+            var alphaId = "row" + rowId + "col5";
+            var eId = "row" + rowId + "col6";
+            var hrcId = "row" + rowId + "col7";
+            var sigmaId = "row" + rowId + "col8";
+            var kcuId = "row" + rowId + "col9";
+            var deltaId = "row" + rowId + "col10";
+            var psiId = "row" + rowId + "col11";
+            var muId = "row" + rowId + "col12";
+            var tauId = "row" + rowId + "col13";
+            var tkId = "row" + rowId + "col14";
+            var tfId = "row" + rowId + "col15";
+
+            cValues.push(document.getElementById(cId).value);
+            lambdaValues.push(document.getElementById(lambdaId).value);
+            roValues.push(document.getElementById(roId).value);
+            alphaValues.push(document.getElementById(alphaId).value);
+            eValues.push(document.getElementById(eId).value);
+            hrcValues.push(document.getElementById(hrcId).value);
+            sigmaValues.push(document.getElementById(sigmaId).value);
+            kcuValues.push(document.getElementById(kcuId).value);
+            deltaValues.push(document.getElementById(deltaId).value);
+            psiValues.push(document.getElementById(psiId).value);
+            muValues.push(document.getElementById(muId).value);
+            tauValues.push(document.getElementById(tauId).value);
+            tkValues.push(document.getElementById(tkId).value);
+            tfValues.push(document.getElementById(tfId).value);
+            console.log(cValues);
+        }
+
+        console.log(cValues);
+
+    }
+
+
     function addNewColumn() {
         var table = document.getElementById("myTable");
         var rowCount = table.rows.length;
