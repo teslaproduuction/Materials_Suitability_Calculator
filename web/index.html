@@ -17,89 +17,94 @@
     <title>potom</title>
 </head>
 <body>
-<body>
 <div class="container">
     <h2>Ввод значений</h2>
     <form>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="cValues">с, Дж/(кг×°С) </label>
-                <input type="text" class="form-control" id="cValues" placeholder="с, Дж/(кг×°С) ">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="lambdaValues">Lambda Values</label>
-                <input type="text" class="form-control" id="lambdaValues" placeholder="Enter lambda values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="rhoValues">Rho Values</label>
-                <input type="text" class="form-control" id="rhoValues" placeholder="Enter rho values">
-            </div>
-        </div>
+        <table class="table" id="myTable">
+            <tbody>
+            <tr>
+                <td>с, Дж/(кг×°С)</td>
+                <td><input type="text" class="form-control" id="row1col2"></td>
+                <td><input type="text" class="form-control" id="row1col3"></td>
+            </tr>
+            <tr>
+                <td>λ, Вт/(м × °С)</td>
+                <td><input type="text" class="form-control" id="row2col2"></td>
+                <td><input type="text" class="form-control" id="row2col3"></td>
+            </tr>
+            <tr>
+                <td>ρ, кг/м³</td>
+                <td><input type="text" class="form-control" id="row3col2"></td>
+                <td><input type="text" class="form-control" id="row3col3"></td>
+            </tr>
+            <tr>
+                <td>α*10⁻⁶, 1/°С</td>
+                <td><input type="text" class="form-control" id="row4col2"></td>
+                <td><input type="text" class="form-control" id="row4col3"></td>
+            </tr>
+            <tr>
+                <td>Е, ГПа</td>
+                <td><input type="text" class="form-control" id="row5col2"></td>
+                <td><input type="text" class="form-control" id="row5col3"></td>
+            </tr>
+            <tr>
+                <td>HRC, ед</td>
+                <td><input type="text" class="form-control" id="row6col2"></td>
+                <td><input type="text" class="form-control" id="row6col3"></td>
+            </tr>
+            <tr>
+                <td>𝞼B</td>
+                <td><input type="text" class="form-control" id="row7col2"></td>
+                <td><input type="text" class="form-control" id="row7col3"></td>
+            </tr>
+            <tr>
+                <td>Sigma 0.2 Values</td>
+                <td><input type="text" class="form-control" id="row8col2"></td>
+                <td><input type="text" class="form-control" id="row8col3"></td>
+            </tr>
+            <tr>
+                <td>KCU, Дж/см²</td>
+                <td><input type="text" class="form-control" id="row9col2"></td>
+                <td><input type="text" class="form-control" id="row9col3"></td>
+            </tr>
+            <tr>
+                <td>δ, %</td>
+                <td><input type="text" class="form-control" id="row10col2"></td>
+                <td><input type="text" class="form-control" id="row10col3"></td>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="alphaValues">Alpha Values</label>
-                <input type="text" class="form-control" id="alphaValues" placeholder="Enter alpha values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="EValues">E Values</label>
-                <input type="text" class="form-control" id="EValues" placeholder="Enter E values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="HRCValues">HRC Values</label>
-                <input type="text" class="form-control" id="HRCValues" placeholder="Enter HRC values">
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td>ψ, %</td>
+                <td><input type="text" class="form-control" id="row11col2"></td>
+                <td><input type="text" class="form-control" id="row11col3"></td>
 
-        <div class="form-row">
-            <!-- Добавьте аналогичные блоки для остальных полей -->
-            <!-- Пример для sigma_B_values -->
-            <div class="form-group col-md-4">
-                <label for="sigmaBValues">Sigma B Values</label>
-                <input type="text" class="form-control" id="sigmaBValues" placeholder="Enter sigma B values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="sigma02Values">Sigma 0.2 Values</label>
-                <input type="text" class="form-control" id="sigma02Values" placeholder="Enter sigma 0.2 values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="KSUValues">KSU Values</label>
-                <input type="text" class="form-control" id="KSUValues" placeholder="Enter KSU values">
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td>µ</td>
+                <td><input type="text" class="form-control" id="row12col2"></td>
+                <td><input type="text" class="form-control" id="row12col3"></td>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="deltaValues">Delta Values</label>
-                <input type="text" class="form-control" id="deltaValues" placeholder="Enter delta values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="psiValues">ψ, %</label>
-                <input type="text" class="form-control" id="psiValues" placeholder="ψ, %">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="muValues">Mu Values</label>
-                <input type="text" class="form-control" id="muValues" placeholder="Enter mu values">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="tauValues">Tau Values</label>
-                <input type="text" class="form-control" id="tauValues" placeholder="Enter tau values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="tkValues">t_k Values</label>
-                <input type="text" class="form-control" id="tkValues" placeholder="Enter t_k values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="tfValues">t_f Values</label>
-                <input type="text" class="form-control" id="tfValues" placeholder="Enter t_f values">
-            </div>
-        </div>
-
+            </tr>
+            <tr>
+                <td>τ, мин</td>
+                <td><input type="text" class="form-control" id="row13col2"></td>
+                <td><input type="text" class="form-control" id="row13col3"></td>
+            </tr>
+            <tr>
+                <td>t_k Values</td>
+                <td><input type="text" class="form-control" id="row14col2"></td>
+                <td><input type="text" class="form-control" id="row14col3"></td>
+            </tr>
+            <tr>
+                <td>t_f Values</td>
+                <td><input type="text" class="form-control" id="row15col2"></td>
+                <td><input type="text" class="form-control" id="row15col3"></td>
+            </tr>
+            </tbody>
+        </table>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <button onclick="addNewColumn()">Добавить столбец</button>
 </div>
 
 
@@ -113,6 +118,20 @@
             document.getElementById("result").innerText = "Result: " + result;
         });
     }
+    var columnIndex = 4;
+    function addNewColumn() {
+        var table = document.getElementById("myTable");
+        var rowCount = table.rows.length;
+
+        for (var i = 0; i < rowCount; i++) {
+            var cell = table.rows[i].insertCell(-1);
+            var rowId = i + 1; // начинать с 1 для строк
+            var cellId = "row" + rowId + "col" + columnIndex;
+            cell.innerHTML = "<input type='text' class='form-control' id='" + cellId + "'>";
+        }
+        columnIndex++;
+    }
+
 </script>
 </body>
 </html>

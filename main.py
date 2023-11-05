@@ -198,7 +198,7 @@ def get_square_result(number):
 
 if __name__ == "__main__":
     eel.init('web')
-    eel.start('index.html', size=(760, 760))
+    eel.start('index.html', mode='Arc', size=(760, 760))
     print("Результаты:")
     for i in range(len(c_values)):
         print(f"Для набора данных {i + 1}:")
