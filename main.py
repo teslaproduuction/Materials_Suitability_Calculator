@@ -41,12 +41,13 @@ def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
 
 # Функция для вычисления К8
 def calculate_K8(sigma_B, HRC, E):
-    return (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 2))  # *10**-4
+    return (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
 
 
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
-    return (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))  # *10**6
+    # print("sigma_0_2 = ", sigma_0_2, "tau = ", tau, "alpha = ", alpha)
+    return (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))  *10**15
 
 
 # Функция для вычисления К10
@@ -59,20 +60,20 @@ def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
 # Функция для вычисления К11
 def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
-    return (delta / (
-            2 * ((alpha * 10 ** -6) * delta_t / (1 - mu) - (2 * (sigma_0_2 * 10 ** 2) / E * 10 ** 9))))  # *10**3
+    print("к11","delta = ", delta, "alpha = ", alpha, "mu = ", mu, "t_k = ", t_k, "t_f = ", t_f, "sigma_0_2 = ", sigma_0_2, "E = ", E, "delta_t = ", delta_t)
+    return (delta / (2 * (((alpha * 10 ** -6 * delta_t)/(1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6) )/ (E * 10 ** 9)) )))  # *10**3
+    # (delta / (2 * (((alpha * 10 ** -6 * delta_t)/(1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6) )/ (E * 10 ** 9)) )))
 
 
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
-    return (KSU / ((sigma_0_2 * 10 ** -6) * (
-            (alpha * 10 ** -6) * t_k - 2 * (sigma_0_2 * 10 ** 6) / E * 10 ** 9)))  # *10**-6
-
+    return (KSU/(sigma_0_2 * 10 ** -6 * (((alpha * 10 ** -6) * t_k) - (2 *(sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))) *10**-5
+    # (KSU / (sigma_0_2 * 10 ** -6 * (((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
 
 # Функция для вычисления К13
 def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
     delta_t = calculate_delta_t(t_k, t_f)
-    return ((sigma_B * psi) / (sigma_0_2 * (1 - psi ** 2) * alpha * delta_t))
+    return (((sigma_B*10**6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
 
 
 # Функция для вычисления К14
@@ -85,17 +86,18 @@ def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
 # Функция для вычисления К15
 def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
-    numerator = sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu)
-    denominator = sigma_0_2 * 10 ** 6 / E * 10 ** 9 + (alpha * 10 ** -6 * delta_t) / (1 - mu) * (
-            alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)
+    numerator = (sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu))
+    denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * ((alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
+    # print("numerator = ", numerator, "denominator = ", denominator)
     return ((numerator / denominator) ** 2)  # *10**3
 
 
 # Функция для вычисления К16
 def calculate_K16(psi, alpha, t_k, t_f, mu, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
-    numerator = math.log(100 / (100 - psi), 10)
-    denominator = 2 * (alpha * 10 ** -6 * delta_t) / (1 - mu) - 4 * (sigma_0_2 * 10 ** 6 / E * 10 ** 2)
+    numerator = math.log(1 / (1 - psi))
+    denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
+    # print("numerator = ", numerator, "denominator = ", denominator)
     return (numerator / denominator)
 
 
@@ -106,7 +108,7 @@ def calculate_delta_t(t_k, t_f):
 
 # delta_t = t_k - t_f
 def calculate_sigma_0_2_t_max(alpha, E, delta_t, mu):
-    return ((alpha * 10 ** -6) * (E * 10 ** 2) * delta_t) / (1 - mu)
+    return ((alpha * 10 ** -6) * (E * 10 ** 9) * delta_t) / (1 - mu)
 
 
 # sigma_0_2_t_max = ((alpha*10**-6) * (E*10**2) * delta_t) / (1 - mu)
@@ -222,7 +224,7 @@ def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_val
     t_k_values.append(float(t_k_value))
     t_f_values.append(float(t_f_value))
 
-    print(len(c_values))
+    # print(len(c_values))
 
     # Вычисление и сохранение результатов в массивы
     for i in range(len(c_values)):
@@ -251,7 +253,25 @@ def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_val
         K16 = calculate_K16(psi_values[i], alpha_values[i], t_k_values[i], t_f_values[i], mu_values[i],
                             sigma_0_2_values[i],
                             E_values[i])
-
+        # вывод результатов
+        # print("результаты", i)
+        # print("K1 = ", K1)
+        # print("K2 = ", K2)
+        # print("K3 = ", K3)
+        # print("K4 = ", K4)
+        # print("K5 = ", K5)
+        # print("K6 = ", K6)
+        # print("K7 = ", K7)
+        # print("K8 = ", K8)
+        # print("K9 = ", K9)
+        # print("K10 = ", K10)
+        # print("K11 = ", K11)
+        # print("K12 = ", K12)
+        # print("K13 = ", K13)
+        # print("K14 = ", K14)
+        # print("K15 = ", K15)
+        # print("K16 = ", K16)
+        # print(" ")
         # Сохранение результатов
         K1_values.append(K1)
         K2_values.append(K2)
@@ -269,6 +289,7 @@ def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_val
         K14_values.append(K14)
         K15_values.append(K15)
         K16_values.append(K16)
+
 
 @eel.expose
 def get_result():
