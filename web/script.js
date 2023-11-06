@@ -53,37 +53,56 @@ function calculate() {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
             var cellValue = document.getElementById(cellId).value;
-            if (i == 0) {
-                cValues.push(cellValue);
-            } else if (i == 1) {
-                lambdaValues.push(cellValue);
-            } else if (i == 2) {
-                roValues.push(cellValue);
-            } else if (i == 3) {
-                alphaValues.push(cellValue);
-            } else if (i == 4) {
-                eValues.push(cellValue);
-            } else if (i == 5) {
-                hrcValues.push(cellValue);
-            } else if (i == 6) {
-                sigmaValues.push(cellValue);
-            } else if (i == 7) {
-                sigmaValues2.push(cellValue);
-            } else if (i == 8) {
-                kcuValues.push(cellValue);
-            } else if (i == 9) {
-                deltaValues.push(cellValue);
-            } else if (i == 10) {
-                psiValues.push(cellValue);
-            } else if (i == 11) {
-                muValues.push(cellValue);
-            } else if (i == 12) {
-                tauValues.push(cellValue);
-            } else if (i == 13) {
-                tkValues.push(cellValue);
-            } else if (i == 14) {
-                tfValues.push(cellValue);
+            switch (i) {
+                case 0:
+                    cValues.push(cellValue);
+                    break;
+                case 1:
+                    lambdaValues.push(cellValue);
+                    break;
+                case 2:
+                    roValues.push(cellValue);
+                    break;
+                case 3:
+                    alphaValues.push(cellValue);
+                    break;
+                case 4:
+                    eValues.push(cellValue);
+                    break;
+                case 5:
+                    hrcValues.push(cellValue);
+                    break;
+                case 6:
+                    sigmaValues.push(cellValue);
+                    break;
+                case 7:
+                    sigmaValues2.push(cellValue);
+                    break;
+                case 8:
+                    kcuValues.push(cellValue);
+                    break;
+                case 9:
+                    deltaValues.push(cellValue);
+                    break;
+                case 10:
+                    psiValues.push(cellValue);
+                    break;
+                case 11:
+                    muValues.push(cellValue);
+                    break;
+                case 12:
+                    tauValues.push(cellValue);
+                    break;
+                case 13:
+                    tkValues.push(cellValue);
+                    break;
+                case 14:
+                    tfValues.push(cellValue);
+                    break;
+                default:
+                    break;
             }
+
 
         }
     }
@@ -123,32 +142,46 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
-            console.log(get_result)
-
-            var K1 = get_result[0][0];
-            var K2 = get_result[1];
-            var K3 = get_result[2];
-            var K4 = get_result[3];
-            var K5 = get_result[4];
-            var K6 = get_result[5];
-            var K7 = get_result[6];
-            var K8 = get_result[7];
-            var K9 = get_result[8];
-            var K10 = get_result[9];
-            var K11 = get_result[10];
-            var K12 = get_result[11];
-            var K13 = get_result[12];
-            var K14 = get_result[13];
-            var K15 = get_result[14];
-            var K16 = get_result[15];
-
-
-            var result_text = "K1 = " + K1 + "\n" + "K2 = " + K2 + "\n" + "K3 = " + K3 + "\n" + "K4 = " + K4 + "\n" + "K5 = " + K5 + "\n" + "K6 = " + K6 + "\n" + "K7 = " + K7 + "\n" + "K8 = " + K8 + "\n" + "K9 = " + K9 + "\n" + "K10 = " + K10 + "\n" + "K11 = " + K11 + "\n" + "K12 = " + K12 + "\n" + "K13 = " + K13 + "\n" + "K14 = " + K14 + "\n" + "K15 = " + K15 + "\n" + "K16 = " + K16 + "\n";
-            document.getElementById("result").innerText = result_text;
-
-
+        var table = "<table class='table table-bordered'>";
+        for (var i = 0; i < get_result.length; i++) {
+            table += "<tr>";
+            for (var j = 0; j < get_result[i].length; j++) {
+                table += "<td>K" + (i + 1) + (j !== 0 ? "." + (j + 1) : "") + " = " + get_result[i][j].toFixed(4) + "</td>";
+            }
+            table += "</tr>";
         }
-    );
+        table += "</table>";
+        document.getElementById("result").innerHTML = table;
+    });
+
+
+    // eel.get_result()(function (get_result) {
+    //
+    //
+    //         var K1 = get_result[0];
+    //         var K2 = get_result[1];
+    //         var K3 = get_result[2];
+    //         var K4 = get_result[3];
+    //         var K5 = get_result[4];
+    //         var K6 = get_result[5];
+    //         var K7 = get_result[6];
+    //         var K8 = get_result[7];
+    //         var K9 = get_result[8];
+    //         var K10 = get_result[9];
+    //         var K11 = get_result[10];
+    //         var K12 = get_result[11];
+    //         var K13 = get_result[12];
+    //         var K14 = get_result[13];
+    //         var K15 = get_result[14];
+    //         var K16 = get_result[15];
+    //
+    //
+    //         var result_text = "K1 = " + K1 + "\n" + "K2 = " + K2 + "\n" + "K3 = " + K3 + "\n" + "K4 = " + K4 + "\n" + "K5 = " + K5 + "\n" + "K6 = " + K6 + "\n" + "K7 = " + K7 + "\n" + "K8 = " + K8 + "\n" + "K9 = " + K9 + "\n" + "K10 = " + K10 + "\n" + "K11 = " + K11 + "\n" + "K12 = " + K12 + "\n" + "K13 = " + K13 + "\n" + "K14 = " + K14 + "\n" + "K15 = " + K15 + "\n" + "K16 = " + K16 + "\n";
+    //         document.getElementById("result").innerText = result_text;
+    //
+    //
+    //     }
+    // );
 
     // console.log(value)
     // eel.get_square_result(value)(function (result) {
