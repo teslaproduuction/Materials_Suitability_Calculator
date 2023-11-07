@@ -63,14 +63,14 @@ def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     print("к11", "delta = ", delta, "alpha = ", alpha, "mu = ", mu, "t_k = ", t_k, "t_f = ", t_f, "sigma_0_2 = ",
           sigma_0_2, "E = ", E, "delta_t = ", delta_t)
     return (delta / (2 * (
-                ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))  # *10**3
+            ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))  # *10**3
     # (delta / (2 * (((alpha * 10 ** -6 * delta_t)/(1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6) )/ (E * 10 ** 9)) )))
 
 
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
     return (KSU / (sigma_0_2 * 10 ** -6 * (
-                ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))) * 10 ** -5
+            ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))) * 10 ** -5
     # (KSU / (sigma_0_2 * 10 ** -6 * (((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
 
 
@@ -92,7 +92,7 @@ def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
     numerator = (sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu))
     denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * (
-                (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
+            (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
     # print("numerator = ", numerator, "denominator = ", denominator)
     return ((numerator / denominator) ** 2)  # *10**3
 
@@ -121,24 +121,6 @@ def calculate_sigma_0_2_t_max(alpha, E, delta_t, mu):
 def calculate_a(lambda_value, c, rho):
     return lambda_value / (c * rho)
 
-
-# a = lambda_value / (c * rho)
-# Ваши константы в виде массивов
-# c_values = [565, 565]
-# lambda_values = [42, 55]
-# rho_values = [7676, 7676]
-# alpha_values = [14.3, 18]
-# E_values = [175, 60]
-# HRC_values = [45, 30]
-# sigma_B_values = [620, 450]
-# sigma_0_2_values = [500, 100]
-# KSU_values = [73, 73]
-# delta_values = [23, 29]
-# psi_values = [70, 90]
-# mu_values = [0.30, 0.30]
-# tau_values = [1, 0.42]
-# t_k_values = [150, 150]
-# t_f_values = [2, 2]
 
 c_values = []
 lambda_values = []
@@ -175,25 +157,6 @@ K15_values = []
 K16_values = []
 
 
-def print_K():
-    print(K1_values)
-    print(K2_values)
-    print(K3_values)
-    print(K4_values)
-    print(K5_values)
-    print(K6_values)
-    print(K7_values)
-    print(K8_values)
-    print(K9_values)
-    print(K10_values)
-    print(K11_values)
-    print(K12_values)
-    print(K13_values)
-    print(K14_values)
-    print(K15_values)
-    print(K16_values)
-
-
 @eel.expose
 def add_to_array(*args):
     values = [float(arg) for arg in args]
@@ -203,7 +166,7 @@ def add_to_array(*args):
 
     for set_values in sets_of_values:
         c_value, lambda_value, rho_value, alpha_value, E_value, HRC_value, sigma_B_value, sigma_0_2_value, \
-        KSU_value, delta_value, psi_value, mu_value, tau_value, t_k_value, t_f_value = set_values
+            KSU_value, delta_value, psi_value, mu_value, tau_value, t_k_value, t_f_value = set_values
 
         K1 = calculate_K1(lambda_value, sigma_B_value, alpha_value, E_value)
         K2 = calculate_K2(lambda_value, delta_value, alpha_value, E_value)
