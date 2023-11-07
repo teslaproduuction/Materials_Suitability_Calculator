@@ -213,7 +213,6 @@ def add_to_array(*args):
 
 @eel.expose
 def get_result():
-    dump_values = [values_dict[key][:] for key in values_dict]
     for value in values_dict.values():
         value.clear()
     return tuple([K_values[key][:] for key in K_values])
