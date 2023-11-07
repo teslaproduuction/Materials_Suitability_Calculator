@@ -195,86 +195,38 @@ def print_K():
 
 
 @eel.expose
-def add_to_array(c_value, lambda_value, rho_value, alpha_value, E_value, HRC_value, sigma_B_value, sigma_0_2_value,
-                 KSU_value, delta_value, psi_value, mu_value, tau_value, t_k_value, t_f_value):
-    c_values = []
-    lambda_values = []
-    rho_values = []
-    alpha_values = []
-    E_values = []
-    HRC_values = []
-    sigma_B_values = []
-    sigma_0_2_values = []
-    KSU_values = []
-    delta_values = []
-    psi_values = []
-    mu_values = []
-    tau_values = []
-    t_k_values = []
-    t_f_values = []
+def add_to_array(*args):
+    values = [float(arg) for arg in args]
 
-    c_values.append(float(c_value))
-    lambda_values.append(float(lambda_value))
-    rho_values.append(float(rho_value))
-    alpha_values.append(float(alpha_value))
-    E_values.append(float(E_value))
-    HRC_values.append(float(HRC_value))
-    sigma_B_values.append(float(sigma_B_value))
-    sigma_0_2_values.append(float(sigma_0_2_value))
-    KSU_values.append(float(KSU_value))
-    delta_values.append(float(delta_value))
-    psi_values.append(float(psi_value))
-    mu_values.append(float(mu_value))
-    tau_values.append(float(tau_value))
-    t_k_values.append(float(t_k_value))
-    t_f_values.append(float(t_f_value))
+    num_values_per_set = 15
+    sets_of_values = [values[i:i + num_values_per_set] for i in range(0, len(values), num_values_per_set)]
 
-    # print(len(c_values))
+    for set_values in sets_of_values:
+        c_value, lambda_value, rho_value, alpha_value, E_value, HRC_value, sigma_B_value, sigma_0_2_value, \
+        KSU_value, delta_value, psi_value, mu_value, tau_value, t_k_value, t_f_value = set_values
 
-    # Вычисление и сохранение результатов в массивы
-    for i in range(len(c_values)):
-        K1 = calculate_K1(lambda_values[i], sigma_B_values[i], alpha_values[i], E_values[i])
-        K2 = calculate_K2(lambda_values[i], delta_values[i], alpha_values[i], E_values[i])
-        K3 = calculate_K3(lambda_values[i], KSU_values[i], alpha_values[i], E_values[i])
-        K4 = calculate_K4(lambda_values[i], c_values[i], alpha_values[i], rho_values[i])
-        K5 = calculate_K5(lambda_values[i], c_values[i], rho_values[i], alpha_values[i], E_values[i])
-        K6 = calculate_K6(sigma_B_values[i], mu_values[i], alpha_values[i], E_values[i])
-        K7 = calculate_K7(lambda_values[i], c_values[i], rho_values[i], sigma_B_values[i], mu_values[i],
-                          alpha_values[i],
-                          E_values[i])
-        K8 = calculate_K8(sigma_B_values[i], HRC_values[i], E_values[i])
-        K9 = calculate_K9(sigma_0_2_values[i], tau_values[i], alpha_values[i])
-        K10 = calculate_K10(t_k_values[i], t_f_values[i], alpha_values[i], E_values[i], mu_values[i],
-                            sigma_0_2_values[i])
-        K11 = calculate_K11(delta_values[i], alpha_values[i], mu_values[i], t_k_values[i], t_f_values[i],
-                            sigma_0_2_values[i], E_values[i])
-        K12 = calculate_K12(KSU_values[i], sigma_0_2_values[i], alpha_values[i], t_k_values[i], E_values[i])
-        K13 = calculate_K13(sigma_B_values[i], psi_values[i], sigma_0_2_values[i], alpha_values[i], t_k_values[i],
-                            t_f_values[i])
-        K14 = calculate_K14(sigma_B_values[i], delta_values[i], psi_values[i], sigma_0_2_values[i], E_values[i],
-                            alpha_values[i], t_k_values[i], t_f_values[i])
-        K15 = calculate_K15(sigma_B_values[i], alpha_values[i], t_k_values[i], t_f_values[i], mu_values[i],
-                            sigma_0_2_values[i], E_values[i])
-        K16 = calculate_K16(psi_values[i], alpha_values[i], t_k_values[i], t_f_values[i], mu_values[i],
-                            sigma_0_2_values[i],
-                            E_values[i])
-        # Сохранение результатов
-        K1_values.append(K1)
-        K2_values.append(K2)
-        K3_values.append(K3)
-        K4_values.append(K4)
-        K5_values.append(K5)
-        K6_values.append(K6)
-        K7_values.append(K7)
-        K8_values.append(K8)
-        K9_values.append(K9)
-        K10_values.append(K10)
-        K11_values.append(K11)
-        K12_values.append(K12)
-        K13_values.append(K13)
-        K14_values.append(K14)
-        K15_values.append(K15)
-        K16_values.append(K16)
+        K1 = calculate_K1(lambda_value, sigma_B_value, alpha_value, E_value)
+        K2 = calculate_K2(lambda_value, delta_value, alpha_value, E_value)
+        K3 = calculate_K3(lambda_value, KSU_value, alpha_value, E_value)
+        K4 = calculate_K4(lambda_value, c_value, alpha_value, rho_value)
+        K5 = calculate_K5(lambda_value, c_value, rho_value, alpha_value, E_value)
+        K6 = calculate_K6(sigma_B_value, mu_value, alpha_value, E_value)
+        K7 = calculate_K7(lambda_value, c_value, rho_value, sigma_B_value, mu_value, alpha_value, E_value)
+        K8 = calculate_K8(sigma_B_value, HRC_value, E_value)
+        K9 = calculate_K9(sigma_0_2_value, tau_value, alpha_value)
+        K10 = calculate_K10(t_k_value, t_f_value, alpha_value, E_value, mu_value, sigma_0_2_value)
+        K11 = calculate_K11(delta_value, alpha_value, mu_value, t_k_value, t_f_value, sigma_0_2_value, E_value)
+        K12 = calculate_K12(KSU_value, sigma_0_2_value, alpha_value, t_k_value, E_value)
+        K13 = calculate_K13(sigma_B_value, psi_value, sigma_0_2_value, alpha_value, t_k_value, t_f_value)
+        K14 = calculate_K14(sigma_B_value, delta_value, psi_value, sigma_0_2_value, E_value, alpha_value, t_k_value,
+                            t_f_value)
+        K15 = calculate_K15(sigma_B_value, alpha_value, t_k_value, t_f_value, mu_value, sigma_0_2_value, E_value)
+        K16 = calculate_K16(psi_value, alpha_value, t_k_value, t_f_value, mu_value, sigma_0_2_value, E_value)
+
+        K_values = [K1, K2, K3, K4, K5, K6, K7, K8, K9, K10, K11, K12, K13, K14, K15, K16]
+
+        for i, K_value in enumerate(K_values):
+            globals()[f"K{i + 1}_values"].append(K_value)
 
 
 @eel.expose
