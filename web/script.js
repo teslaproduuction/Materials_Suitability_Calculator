@@ -186,17 +186,33 @@ function addNewColumn() {
     var rowCount = table.rows.length;
 
     for (var i = 0; i < rowCount; i++) {
-        var cell = table.rows[i].insertCell(-1);
-        var rowId = i + 1;
-        var cellId = "row" + rowId + "col" + columnIndex;
-        cell.innerHTML = "<input type='text' class='form-control' id='" + cellId + "'>";
+        var row = table.rows[i];
+        var cellId = "row" + (i + 1) + "col" + columnIndex;
+
+        for (var j = 0; j < 2; j++) {
+            var cell = row.insertCell(-1);
+            var input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control";
+            input.id = cellId;
+            cell.appendChild(input);
+            columnIndex++;
+        }
     }
-    columnIndex++;
-    for (var i = 0; i < rowCount; i++) {
-        var cell = table.rows[i].insertCell(-1);
-        var rowId = i + 1;
-        var cellId = "row" + rowId + "col" + columnIndex;
-        cell.innerHTML = "<input type='text' class='form-control' id='" + cellId + "'>";
-    }
-    columnIndex++;
 }
+
+function removeTwoColumns() {
+    var table = document.getElementById("myTable");
+    var rowCount = table.rows.length;
+
+    if (columnIndex >= 2) {
+        columnIndex -= 2; // Уменьшаем индекс столбца на 2, чтобы удалить два последних столбца.
+
+        for (var i = 0; i < rowCount; i++) {
+            var row = table.rows[i];
+            row.deleteCell(columnIndex); // Удаляем последнюю ячейку.
+            row.deleteCell(columnIndex); // Удаляем предпоследнюю ячейку.
+        }
+    }
+}
+

@@ -60,8 +60,8 @@ def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
 # Функция для вычисления К11
 def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
-    print("к11", "delta = ", delta, "alpha = ", alpha, "mu = ", mu, "t_k = ", t_k, "t_f = ", t_f, "sigma_0_2 = ",
-          sigma_0_2, "E = ", E, "delta_t = ", delta_t)
+    # print("к11", "delta = ", delta, "alpha = ", alpha, "mu = ", mu, "t_k = ", t_k, "t_f = ", t_f, "sigma_0_2 = ",
+    #       sigma_0_2, "E = ", E, "delta_t = ", delta_t)
     return (delta / (2 * (
             ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))  # *10**3
     # (delta / (2 * (((alpha * 10 ** -6 * delta_t)/(1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6) )/ (E * 10 ** 9)) )))
