@@ -1,5 +1,22 @@
 import math
+import sqlite3
 import eel
+
+@eel.expose
+def dropdown():
+    # try:
+        conn = sqlite3.connect('BAZA.sl3')
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT name FROM Сплавы ORDER BY name")
+        result = cursor.fetchall()
+        alloys = [row[0] for row in result]
+        # combo['values'] = alloys
+        conn.close()
+        # return tuple([alloys[row][:] for row in result])
+    # except:
+    #     print("Ошибка")
+    #     return
+dropdown()
 
 
 # Функция для вычисления К1
