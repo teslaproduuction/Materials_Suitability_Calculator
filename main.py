@@ -210,12 +210,17 @@ def add_to_array(*args):
         K_values["K16"].append(K16)
 
 
-
 @eel.expose
 def get_result():
+    return tuple([K_values[key][:] for key in K_values])
+
+
+@eel.expose
+def clear():
     for value in values_dict.values():
         value.clear()
-    return tuple([K_values[key][:] for key in K_values])
+    for value in K_values.values():
+        value.clear()
 
 
 if __name__ == "__main__":

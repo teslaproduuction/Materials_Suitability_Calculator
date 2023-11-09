@@ -178,6 +178,7 @@ function calculate() {
         }
         table += "</tbody></table>";
         document.getElementById("result").innerHTML = table;
+        eel.clear()();
     });
 }
 
