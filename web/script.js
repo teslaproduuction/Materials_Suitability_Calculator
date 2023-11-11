@@ -203,17 +203,7 @@ function addNewColumn() {
 }
 
 function removeTwoColumns() {
-    var table = document.getElementById("myTable");
-    var rowCount = table.rows.length;
-
-    if (columnIndex >= 2) {
-        columnIndex -= 2; // Уменьшаем индекс столбца на 2, чтобы удалить два последних столбца.
-
-        for (var i = 0; i < rowCount; i++) {
-            var row = table.rows[i];
-            row.deleteCell(columnIndex); // Удаляем последнюю ячейку.
-            row.deleteCell(columnIndex); // Удаляем предпоследнюю ячейку.
-        }
-    }
+        // Reload the page after removing columns
+        location.reload();
 }
 
