@@ -4,20 +4,26 @@ import eel
 
 @eel.expose
 def dropdown():
-    # try:
+    try:
         conn = sqlite3.connect('BAZA.sl3')
         cursor = conn.cursor()
         cursor.execute("SELECT DISTINCT name FROM Сплавы ORDER BY name")
         result = cursor.fetchall()
         alloys = [row[0] for row in result]
-        # combo['values'] = alloys
         conn.close()
-        # return tuple([alloys[row][:] for row in result])
-    # except:
-    #     print("Ошибка")
-    #     return
-dropdown()
+        return alloys
+    except Exception as e:
+        return str(e)
 
+def dropdown_select(selected_alloy):
+    conn = sqlite3.connect('baza.sl3')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Сплавы WHERE name=?", (selected_alloy,))
+    result = cursor.fetchone()
+    print(result)
+    conn.close()
+
+dropdown_select("У8А N=0")
 
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):

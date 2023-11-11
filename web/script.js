@@ -207,3 +207,34 @@ function removeTwoColumns() {
         location.reload();
 }
 
+ eel.expose(updateDropdown);
+
+      function updateDropdown(alloys) {
+    var dropdownMenu = document.getElementById('dropdown-menu');
+    var selectedItemInput = document.getElementById('selectedItem');
+
+    // Очистите текущие элементы в выпадающем списке
+    dropdownMenu.innerHTML = '';
+
+    // Добавьте новые элементы в выпадающий список
+    alloys.forEach(function (alloy) {
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+        link.className = 'dropdown-item';
+        link.href = '#';
+        link.textContent = alloy;
+
+        // Добавляем обработчик события клика на каждый элемент списка
+        link.addEventListener('click', function () {
+            selectedItemInput.value = alloy;
+        });
+
+        listItem.appendChild(link);
+        dropdownMenu.appendChild(listItem);
+    });
+}
+
+// Вызывайте функцию dropdown из Python, когда страница загружена
+window.onload = function () {
+    eel.dropdown()(updateDropdown);
+};
