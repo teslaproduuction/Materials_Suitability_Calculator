@@ -193,8 +193,9 @@ function addNewColumn() {
         for (var j = 0; j < 2; j++) {
             var cell = row.insertCell(-1);
             var input = document.createElement("input");
-            input.type = "text";
-            input.className = "form-control";
+            // type="number" class="form-control text-right"
+            input.type = "number";
+            input.className = "form-control text-right";
             input.id = cellId;
             cell.appendChild(input);
             columnIndex++;
