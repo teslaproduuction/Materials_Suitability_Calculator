@@ -195,6 +195,7 @@ function addNewColumn() {
             var input = document.createElement("input");
             // type="number" class="form-control text-right"
             input.type = "number";
+            input.min="0";
             input.className = "form-control text-right";
             input.id = cellId;
             cell.appendChild(input);
