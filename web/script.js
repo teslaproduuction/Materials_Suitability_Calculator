@@ -240,3 +240,67 @@ function removeTwoColumns() {
 window.onload = function () {
     eel.dropdown()(updateDropdown);
 };
+   // Функция для парсинга данных из HTML
+  function parseData() {
+    const labels = [];
+    const values1 = [];
+    const values2 = [];
+
+    const rows = document.querySelectorAll('tbody tr');
+    let currentLabel = '';
+
+    rows.forEach((row, index) => {
+      const cells = row.querySelectorAll('th, td');
+      if (cells.length === 1) {
+        currentLabel = cells[0].textContent.trim();
+      } else {
+        labels.push(currentLabel);
+        values1.push(parseFloat(cells[0].textContent.trim().replace('× 10^', 'e')));
+        values2.push(parseFloat(cells[1].textContent.trim().replace('× 10^', 'e')));
+      }
+    });
+
+    return {
+      labels,
+      values1,
+      values2
+    };
+  }
+
+  // Функция для построения графика
+  function drawChart() {
+    const data = parseData(); // Получаем данные из HTML
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+
+        labels: data.labels,
+        datasets: [
+          {
+            label: 'Значения 1',
+            data: data.values1,
+            fill: false,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2
+          },
+          {
+            label: 'Значения 2',
+            data: data.values2,
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }

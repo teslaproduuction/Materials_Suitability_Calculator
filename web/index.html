@@ -133,7 +133,10 @@
     <button type="button" onclick="calculate()" class="btn btn-outline-primary">Рассчитать</button>
     <button type="button" onclick="addNewColumn()" class="btn btn-outline-success">Добавить столбец</button>
     <button type="button" onclick="removeTwoColumns()" class="btn btn-outline-success">Убрать столбец</button>
+    <button onclick="drawChart()">Построить график</button>
 
+    <!-- Место для графика -->
+    <canvas id="myChart" width="400" height="400"></canvas>
     <div class="input-group mb-3">
         <input type="text" class="form-control text-right" aria-label="Text input with dropdown button"
                id="selectedItem">
@@ -151,6 +154,7 @@
 </div>
 
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/chart.js"></script>
 <script src="/eel.js"></script>
 <script src="script.js"></script>
 </body>

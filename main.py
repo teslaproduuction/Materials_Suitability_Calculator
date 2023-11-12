@@ -25,90 +25,86 @@ def dropdown_select(selected_alloy):
 
 dropdown_select("У8А N=0")
 
+
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
-    return ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
-
+    result = ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
+    return scientific_notation(result)
 
 # Функция для вычисления К2
 def calculate_K2(lambda_value, delta, alpha, E):
-    return (lambda_value * delta) / ((alpha * 10 ** -6) * E * 10 ** 9) * 10 ** -5
-
+    result = (lambda_value * delta) / ((alpha * 10 ** -6) * E * 10 ** 9) * 10 ** -5
+    return scientific_notation(result)
 
 # Функция для вычисления К3
 def calculate_K3(lambda_value, KSU, alpha, E):
-    return ((lambda_value * (KSU)) / ((alpha * 10 ** -6) * E * 10 ** 9))  # *10**-4
-
+    result = ((lambda_value * (KSU)) / ((alpha * 10 ** -6) * E * 10 ** 9))
+    return scientific_notation(result)
 
 # Функция для вычисления К4
 def calculate_K4(lambda_value, c, alpha, rho):
-    return (lambda_value / ((alpha * 10 ** -6) * c * rho))
-
+    result = (lambda_value / ((alpha * 10 ** -6) * c * rho))*10**-2
+    return scientific_notation(result)
 
 # Функция для вычисления К5
 def calculate_K5(lambda_value, c, rho, alpha, E):
     a = calculate_a(lambda_value, c, rho)
-    return (a / ((alpha * 10 ** -6) * E * 10 ** 9)) * 10 ** -13
-
+    result = (a / ((alpha * 10 ** -6) * E * 10 ** 9)) * 10 ** -13
+    return scientific_notation(result)
 
 # Функция для вычисления К6
 def calculate_K6(sigma_B, mu, alpha, E):
-    return ((sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
-
+    result = ((sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+    return scientific_notation(result)
 
 # Функция для вычисления К7
 def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
     a = calculate_a(lambda_value, c, rho)
-    return (a * (sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)  # *10**-3
-
+    result = (a * (sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+    return scientific_notation(result)
 
 # Функция для вычисления К8
 def calculate_K8(sigma_B, HRC, E):
-    return (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
-
+    result = (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
+    return scientific_notation(result)
 
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
-    # print("sigma_0_2 = ", sigma_0_2, "tau = ", tau, "alpha = ", alpha)
-    return (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6)) * 10 ** 15
-
+    result = (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))
+    return scientific_notation(result)
 
 # Функция для вычисления К10
 def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
     delta_t = calculate_delta_t(t_k, t_f)
     sigma_0_2_t_max = calculate_sigma_0_2_t_max(alpha, E, delta_t, mu)
-    return sigma_0_2_t_max / sigma_0_2
-
+    result = sigma_0_2_t_max / sigma_0_2
+    return scientific_notation(result)
 
 # Функция для вычисления К11
 def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
-    # print("к11", "delta = ", delta, "alpha = ", alpha, "mu = ", mu, "t_k = ", t_k, "t_f = ", t_f, "sigma_0_2 = ",
-    #       sigma_0_2, "E = ", E, "delta_t = ", delta_t)
-    return (delta / (2 * (
-            ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))  # *10**3
-    # (delta / (2 * (((alpha * 10 ** -6 * delta_t)/(1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6) )/ (E * 10 ** 9)) )))
-
+    result = (delta / (2 * (
+            ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))
+    return scientific_notation(result)
 
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
-    return (KSU / (sigma_0_2 * 10 ** -6 * (
-            ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))) * 10 ** -5
-    # (KSU / (sigma_0_2 * 10 ** -6 * (((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
-
+    result = (KSU / (sigma_0_2 * 10 ** -6 * (
+            ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
+    return scientific_notation(result)
 
 # Функция для вычисления К13
 def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
     delta_t = calculate_delta_t(t_k, t_f)
-    return (((sigma_B * 10 ** 6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
-
+    result = (((sigma_B * 10 ** 6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
+    return scientific_notation(result)
 
 # Функция для вычисления К14
 def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
     delta_t = calculate_delta_t(t_k, t_f)
-    return ((((sigma_B * 10 ** 6) * (1 + delta + psi) - sigma_0_2 * 10 ** 6) / (
+    result = ((((sigma_B * 10 ** 6) * (1 + delta + psi) - sigma_0_2 * 10 ** 6) / (
             E * 10 ** 9 * (alpha * 10 ** -6 * delta_t) ** 2)))
-
+    return scientific_notation(result)
 
 # Функция для вычисления К15
 def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
@@ -116,17 +112,16 @@ def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
     numerator = (sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu))
     denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * (
             (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
-    # print("numerator = ", numerator, "denominator = ", denominator)
-    return ((numerator / denominator) ** 2)  # *10**3
-
+    result = ((numerator / denominator) ** 2)  # *10**3
+    return scientific_notation(result)
 
 # Функция для вычисления К16
 def calculate_K16(psi, alpha, t_k, t_f, mu, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
     numerator = math.log(1 / (1 - psi))
     denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
-    # print("numerator = ", numerator, "denominator = ", denominator)
-    return (numerator / denominator)
+    result = (numerator / denominator)
+    return scientific_notation(result)
 
 
 # Вычисление sigma_0_2_t_max и delta_t
@@ -165,6 +160,23 @@ values_dict = {
 
 # Создание словаря для результатов K_values
 K_values = {f"K{i + 1}": [] for i in range(16)}
+
+def scientific_notation(number):
+    # Проверка на ноль, чтобы избежать ошибки в логарифме
+    if number == 0:
+        return "0"
+
+    # Определение порядка числа
+    order = int(math.floor(math.log10(abs(number))))
+
+    # Мантисса
+    mantissa = number / (10 ** order)
+
+    # Вывод в формате научной нотации с надстрочной степенью
+    return f"{mantissa:.5f} × 10<sup>{order}</sup>"
+
+
+
 
 
 @eel.expose
