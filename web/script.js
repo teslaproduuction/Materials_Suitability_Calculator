@@ -42,10 +42,14 @@ function calculate() {
     var columnCount = table.rows[0].cells.length;
 
     for (var i = 0; i < rowCount; i++) {
-        for (var c = 2; c <= columnCount; c++) {
+        for (var c = 2; c < columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
-            var cellValue = document.getElementById(cellId).value;
+            var cellValue = document.getElementById(cellId);
+            if (cellValue) {
+                cellValue = cellValue.value;
+            }
+
             switch (i) {
                 case 0:
                     cValues.push(cellValue);
@@ -193,10 +197,10 @@ function addNewColumn() {
         inputGroup.className = "input-group mb-3";
 
         var input = document.createElement("input");
-        input.id = "selectedItem" + (columnIndex-1);
+        input.id = "selectedItem" + (columnIndex - 1);
         input.className = "form-control text-right";
         input.setAttribute("aria-label", "Text input with dropdown button");
-        input.placeholder = "Sample " + (columnIndex-1);
+        input.placeholder = "Sample " + (columnIndex - 1);
 
         var button = document.createElement("button");
         button.className = "btn btn-outline-secondary dropdown-toggle";
@@ -207,7 +211,7 @@ function addNewColumn() {
 
         var ul = document.createElement("ul");
         ul.className = "dropdown-menu dropdown-menu-end";
-        ul.id = "dropdown-menu" + (columnIndex-1);
+        ul.id = "dropdown-menu" + (columnIndex - 1);
 
         inputGroup.appendChild(input);
         inputGroup.appendChild(button);
@@ -216,9 +220,11 @@ function addNewColumn() {
         table.rows[0].appendChild(headerCell);
         columnIndex++;
     }
-    // Add two cells (<td>) for each row
     for (var i = 0; i < rowCount; i++) {
-        var row = table.rows[i+1];
+        var row = table.rows[i + 1];
+        if (!row) {
+            row = table.insertRow(i + 1);
+        }
 
         for (var j = 0; j < 2; j++) {
             var cell = row.insertCell(-1);
@@ -228,12 +234,11 @@ function addNewColumn() {
             input.className = "form-control text-right";
             input.id = "row" + (i + 1) + "col" + (columnIndex - 2 + j);
             cell.appendChild(input);
-            initializeDropdown('selectedItem' + (columnIndex - 3 + j), 'dropdown-menu' + (columnIndex - 3 + j));
 
+            initializeDropdown('selectedItem' + (columnIndex - 3 + j), 'dropdown-menu' + (columnIndex - 3 + j));
         }
     }
 }
-
 
 
 function removeTwoColumns() {
@@ -242,7 +247,6 @@ function removeTwoColumns() {
 }
 
 // eel.expose(updateDropdown);
-// Define a function to initialize the dropdown for a specific button and menu
 function initializeDropdown(buttonId, menuId) {
     var button = document.getElementById(buttonId);
     var dropdownMenu = document.getElementById(menuId);
@@ -250,8 +254,14 @@ function initializeDropdown(buttonId, menuId) {
 
     eel.dropdown()(function (alloys) {
         // Clear the current items in the dropdown menu
-        //  dropdownMenu.innerHTML = '';
-
+        try {
+            var dropdownItems = dropdownMenu.querySelectorAll('li');
+            dropdownItems.forEach(function (item) {
+                item.remove();
+            });
+        } catch (e) {
+            console.log(e);
+        }
         // Add new items to the dropdown menu
         alloys.forEach(function (alloy) {
             var listItem = document.createElement('li');
