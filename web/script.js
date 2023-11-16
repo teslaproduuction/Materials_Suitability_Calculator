@@ -221,7 +221,7 @@ function addNewColumn() {
         table.rows[0].appendChild(headerCell);
         columnIndex++;
     }
-    for (var i = 0; i < rowCount; i++) {
+    for (var i = 0; i < rowCount-1; i++) {
         var row = table.rows[i + 1];
         if (!row) {
             row = table.insertRow(i + 1);
@@ -284,75 +284,22 @@ function initializeDropdown(buttonId, menuId) {
                 //     result = cursor.fetchone()
                 //     print(result)
                 //     conn.close()
-                eel.dropdown_select(selectedItemInput.value)()
-                {
+                eel.dropdown_select(selectedItemInput.value)(function (result) {
+
+
                     var table = document.getElementById("myTable");
                     var rowCount = table.rows.length;
-                    var columnCount = table.rows[0].cells.length;
 
                     for (var i = 0; i < rowCount - 1; i++) {
-                        for (var c = 2; c <= columnCount; c++) {
-                            // вывод значения ячейки
-                            var cellId = "row" + (i + 1) + "col" + c;
-                            console.log(cellId)
-                            var cellValue = document.getElementById(cellId);
-                            if (cellValue) {
-                                cellValue = cellValue.value;
-                            }
-
-                            switch (i) {
-                                case 0:
-                                    cValues.push(cellValue);
-                                    break;
-                                case 1:
-                                    lambdaValues.push(cellValue);
-                                    break;
-                                case 2:
-                                    roValues.push(cellValue);
-                                    break;
-                                case 3:
-                                    alphaValues.push(cellValue);
-                                    break;
-                                case 4:
-                                    eValues.push(cellValue);
-                                    break;
-                                case 5:
-                                    hrcValues.push(cellValue);
-                                    break;
-                                case 6:
-                                    sigmaValues.push(cellValue);
-                                    break;
-                                case 7:
-                                    sigmaValues2.push(cellValue);
-                                    break;
-                                case 8:
-                                    kcuValues.push(cellValue);
-                                    break;
-                                case 9:
-                                    deltaValues.push(cellValue);
-                                    break;
-                                case 10:
-                                    psiValues.push(cellValue);
-                                    break;
-                                case 11:
-                                    muValues.push(cellValue);
-                                    break;
-                                case 12:
-                                    tauValues.push(cellValue);
-                                    break;
-                                case 13:
-                                    tkValues.push(cellValue);
-                                    break;
-                                case 14:
-                                    tfValues.push(cellValue);
-                                    break;
-                                default:
-                                    break;
-                            }
+                        // вывод значения ячейки
+                        var cellId = "row" + (i + 1) + "col" + (parseInt(buttonId.slice(-1)) + 1);
+                        var cellValue = document.getElementById(cellId);
+                        if (cellValue) {
+                            cellValue.value = result[i];
                         }
+
                     }
-                }
-                ;
+                });
             })
 
             listItem.appendChild(link);
