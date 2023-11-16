@@ -41,10 +41,11 @@ function calculate() {
     var rowCount = table.rows.length;
     var columnCount = table.rows[0].cells.length;
 
-    for (var i = 0; i < rowCount; i++) {
-        for (var c = 2; c < columnCount; c++) {
+    for (var i = 0; i < rowCount-1; i++) {
+        for (var c = 2; c <= columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
+            console.log(cellId)
             var cellValue = document.getElementById(cellId);
             if (cellValue) {
                 cellValue = cellValue.value;
