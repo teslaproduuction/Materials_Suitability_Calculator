@@ -1,4 +1,4 @@
-var columnIndex = 4;
+var columnIndex = 6;
 var cValues = [];
 var lambdaValues = [];
 var roValues = [];
@@ -193,10 +193,10 @@ function addNewColumn() {
         inputGroup.className = "input-group mb-3";
 
         var input = document.createElement("input");
-        input.id = "selectedItem" + columnIndex;
+        input.id = "selectedItem" + (columnIndex-1);
         input.className = "form-control text-right";
         input.setAttribute("aria-label", "Text input with dropdown button");
-        input.placeholder = "Sample " + (columnIndex + 1);
+        input.placeholder = "Sample " + (columnIndex-1);
 
         var button = document.createElement("button");
         button.className = "btn btn-outline-secondary dropdown-toggle";
@@ -207,7 +207,7 @@ function addNewColumn() {
 
         var ul = document.createElement("ul");
         ul.className = "dropdown-menu dropdown-menu-end";
-        ul.id = "dropdown-menu" + columnIndex;
+        ul.id = "dropdown-menu" + (columnIndex-1);
 
         inputGroup.appendChild(input);
         inputGroup.appendChild(button);
@@ -216,10 +216,9 @@ function addNewColumn() {
         table.rows[0].appendChild(headerCell);
         columnIndex++;
     }
-
     // Add two cells (<td>) for each row
     for (var i = 0; i < rowCount; i++) {
-        var row = table.rows[i];
+        var row = table.rows[i+1];
 
         for (var j = 0; j < 2; j++) {
             var cell = row.insertCell(-1);
@@ -229,7 +228,7 @@ function addNewColumn() {
             input.className = "form-control text-right";
             input.id = "row" + (i + 1) + "col" + (columnIndex - 2 + j);
             cell.appendChild(input);
-            initializeDropdown('selectedItem' + (columnIndex - 2 + j), 'dropdown-menu' + (columnIndex - 2 + j));
+            initializeDropdown('selectedItem' + (columnIndex - 3 + j), 'dropdown-menu' + (columnIndex - 3 + j));
 
         }
     }
@@ -251,7 +250,7 @@ function initializeDropdown(buttonId, menuId) {
 
     eel.dropdown()(function (alloys) {
         // Clear the current items in the dropdown menu
-         dropdownMenu.innerHTML = '';
+        //  dropdownMenu.innerHTML = '';
 
         // Add new items to the dropdown menu
         alloys.forEach(function (alloy) {
