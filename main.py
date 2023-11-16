@@ -23,7 +23,7 @@ def dropdown_select(selected_alloy):
     print(result)
     conn.close()
 
-dropdown_select("У8А N=0")
+# dropdown_select("У8А N=0")
 
 
 # Функция для вычисления К1

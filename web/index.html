@@ -14,68 +14,78 @@
 <body>
 <div class="container" id="main">
     <h2>Ввод значений</h2>
-
+    <button onclick="getAlloys()" type="button" class="btn btn-outline-info" id="yourButtonId">Получить выбранное
+        значение
+    </button>
     <form>
         <table class="table" id="myTable">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>
-                        <div class="input-group mb-3">
-                            <input id="selectedItem1" class="form-control text-right" aria-label="Text input with dropdown button" placeholder="Sample 1">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu1">
-                                <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
-                            </ul>
-                        </div>
-                    </th>
-                    <!-- Повторите блок для каждого столбца -->
-                    <th>
-                        <div class="input-group mb-3">
-                            <input id="selectedItem2" type="text" class="form-control text-right" aria-label="Text input with dropdown button" placeholder="Sample 2">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu2">
-                                <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
-                            </ul>
-                        </div>
-                    </th>
-                    <!-- ... Повторите блок для каждого столбца ... -->
-                    <th>
-                        <div class="input-group mb-3">
-                            <input id="selectedItem3" class="form-control text-right" aria-label="Text input with dropdown button" placeholder="Sample 3">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu3">
-                                <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
-                            </ul>
-                        </div>
-                    </th>
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem1" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 1">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu1">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+                <!-- Повторите блок для каждого столбца -->
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem2" type="text" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 1">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu2">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+                <!-- ... Повторите блок для каждого столбца ... -->
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem3" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu3">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
 
-                    <th>
-                        <div class="input-group mb-3">
-                            <input id="selectedItem4" type="text" class="form-control text-right" aria-label="Text input with dropdown button" placeholder="Sample 4">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu4">
-                                <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
-                            </ul>
-                        </div>
-                    </th>
-                </tr>
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem4" type="text" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu4">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+            </tr>
             </thead>
             <tbody>
             <tr>
                 <td>с, Дж/(кг×°С)</td>
-                <td><input type="number" min="0" class="form-control text-right" id="row1col2" value="565"></td>
-                <td><input type="number" min="0" class="form-control text-right" id="row1col3" value="565"></td>
-                <td><input type="number" min="0" class="form-control text-right" id="row1col4" value="565"></td>
-                <td><input type="number" min="0" class="form-control text-right" id="row1col5" value="565"></td>
+                <td><input type="number" min="0" class="form-control text-right" id="row1col2" value="564"></td>
+                <td><input type="number" min="0" class="form-control text-right" id="row1col3" value="564"></td>
+                <td><input type="number" min="0" class="form-control text-right" id="row1col4" value="564"></td>
+                <td><input type="number" min="0" class="form-control text-right" id="row1col5" value="564"></td>
             </tr>
             <tr>
                 <td>λ, Вт/(м × °С)</td>
@@ -185,11 +195,11 @@
     <button type="button" onclick="calculate()" class="btn btn-outline-primary">Рассчитать</button>
     <button type="button" onclick="addNewColumn()" class="btn btn-outline-success">Добавить столбец</button>
     <button type="button" onclick="removeTwoColumns()" class="btn btn-outline-danger">Убрать столбец</button>
-    <button onclick="drawChart()" type="button" class="btn btn-outline-success">Построить график</button>
+    <button onclick="drawChart()" type="button" class="btn btn-outline-info">Построить график</button>
+
 
     <!-- Место для графика -->
     <canvas id="myChart" width="400" height="400"></canvas>
-
 
 
     <div id="result" style="display: none;" class="container">

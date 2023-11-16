@@ -41,7 +41,7 @@ function calculate() {
     var rowCount = table.rows.length;
     var columnCount = table.rows[0].cells.length;
 
-    for (var i = 0; i < rowCount-1; i++) {
+    for (var i = 0; i < rowCount - 1; i++) {
         for (var c = 2; c <= columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
@@ -247,6 +247,7 @@ function removeTwoColumns() {
     location.reload();
 }
 
+
 // eel.expose(updateDropdown);
 function initializeDropdown(buttonId, menuId) {
     var button = document.getElementById(buttonId);
@@ -274,7 +275,85 @@ function initializeDropdown(buttonId, menuId) {
             // Add a click event listener to each dropdown item
             link.addEventListener('click', function () {
                 selectedItemInput.value = alloy;
-            });
+                console.log('Значение изменилось:', selectedItemInput.value);
+
+                // def dropdown_select(selected_alloy):
+                //     conn = sqlite3.connect('baza.sl3')
+                //     cursor = conn.cursor()
+                //     cursor.execute("SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?", (selected_alloy,))
+                //     result = cursor.fetchone()
+                //     print(result)
+                //     conn.close()
+                eel.dropdown_select(selectedItemInput.value)()
+                {
+                    var table = document.getElementById("myTable");
+                    var rowCount = table.rows.length;
+                    var columnCount = table.rows[0].cells.length;
+
+                    for (var i = 0; i < rowCount - 1; i++) {
+                        for (var c = 2; c <= columnCount; c++) {
+                            // вывод значения ячейки
+                            var cellId = "row" + (i + 1) + "col" + c;
+                            console.log(cellId)
+                            var cellValue = document.getElementById(cellId);
+                            if (cellValue) {
+                                cellValue = cellValue.value;
+                            }
+
+                            switch (i) {
+                                case 0:
+                                    cValues.push(cellValue);
+                                    break;
+                                case 1:
+                                    lambdaValues.push(cellValue);
+                                    break;
+                                case 2:
+                                    roValues.push(cellValue);
+                                    break;
+                                case 3:
+                                    alphaValues.push(cellValue);
+                                    break;
+                                case 4:
+                                    eValues.push(cellValue);
+                                    break;
+                                case 5:
+                                    hrcValues.push(cellValue);
+                                    break;
+                                case 6:
+                                    sigmaValues.push(cellValue);
+                                    break;
+                                case 7:
+                                    sigmaValues2.push(cellValue);
+                                    break;
+                                case 8:
+                                    kcuValues.push(cellValue);
+                                    break;
+                                case 9:
+                                    deltaValues.push(cellValue);
+                                    break;
+                                case 10:
+                                    psiValues.push(cellValue);
+                                    break;
+                                case 11:
+                                    muValues.push(cellValue);
+                                    break;
+                                case 12:
+                                    tauValues.push(cellValue);
+                                    break;
+                                case 13:
+                                    tkValues.push(cellValue);
+                                    break;
+                                case 14:
+                                    tfValues.push(cellValue);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+                ;
+            })
 
             listItem.appendChild(link);
             dropdownMenu.appendChild(listItem);
@@ -306,7 +385,9 @@ window.onload = function () {
     initializeDropdown('selectedItem2', 'dropdown-menu2');
     initializeDropdown('selectedItem3', 'dropdown-menu3');
     initializeDropdown('selectedItem4', 'dropdown-menu4');
+
 };
+
 
 // Функция для парсинга данных из HTML
 function parseData() {
@@ -372,3 +453,4 @@ function drawChart() {
         }
     });
 }
+
