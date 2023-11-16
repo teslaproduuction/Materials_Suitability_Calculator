@@ -42,10 +42,14 @@ function calculate() {
     var columnCount = table.rows[0].cells.length;
 
     for (var i = 0; i < rowCount; i++) {
-        for (var c = 2; c <= columnCount; c++) {
+        for (var c = 2; c < columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
-            var cellValue = document.getElementById(cellId).value;
+            var cellValue = document.getElementById(cellId);
+            if (cellValue) {
+                cellValue = cellValue.value;
+            }
+
             switch (i) {
                 case 0:
                     cValues.push(cellValue);
@@ -243,7 +247,6 @@ function removeTwoColumns() {
 }
 
 // eel.expose(updateDropdown);
-// Define a function to initialize the dropdown for a specific button and menu
 function initializeDropdown(buttonId, menuId) {
     var button = document.getElementById(buttonId);
     var dropdownMenu = document.getElementById(menuId);
@@ -256,8 +259,7 @@ function initializeDropdown(buttonId, menuId) {
             dropdownItems.forEach(function (item) {
                 item.remove();
             });
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
         // Add new items to the dropdown menu
