@@ -284,8 +284,11 @@ def add_to_array(*args):
 @eel.expose
 def get_result():
     # print(K_values2)
-    spearman_correlation(K_values2)
-    return tuple([K_values[key][:] for key in K_values])
+    R_results = spearman_correlation(K_values2)
+    for result in R_results:
+        print(result)
+    K_results = tuple([K_values[key][:] for key in K_values])
+    return K_results
 
 
 @eel.expose
@@ -315,33 +318,30 @@ def convert_to_float(value):
 
 #спеарман
 def spearman_correlation(data):
-    # Преобразуем значения в словаре в числа с плавающей точкой
+    results_array = []  # массив для результатов
+
     for key, values in data.items():
-        data[key] = [convert_to_float(value) for value in values]
+        values_float = [convert_to_float(value) for value in values]
 
-        # Рассчитываем коэффициент корреляции Спирмена и t-критерий между четными и нечетными элементами для каждого критерия
-    for key, values in data.items():
-        even_indices = [i for i in range(0, len(values), 2)]
-        odd_indices = [i for i in range(1, len(values), 2)]
+        even_indices = [i for i in range(0, len(values_float), 2)]
+        odd_indices = [i for i in range(1, len(values_float), 2)]
 
-        even_elements = [float(values[i]) for i in even_indices]
-        odd_elements = [float(values[i]) for i in odd_indices]
+        even_elements = [values_float[i] for i in even_indices]
+        odd_elements = [values_float[i] for i in odd_indices]
 
-        print(even_elements)
-        print(odd_elements)
-
-        # Рассчитываем коэффициент корреляции Спирмена
+        # Спирмен
         correlation_coefficient, p_value_spearman = spearmanr(even_elements, odd_elements)
         correlation_coefficient = round(correlation_coefficient, 1)
-        print(
-            f'Коэффициент корреляции Спирмена между четными и нечетными элементами {key}: {correlation_coefficient}')
-
-        # Рассчитываем t-критерий
+        if math.isnan(correlation_coefficient):
+            correlation_coefficient = 'недостаточно данных'
+        # Стьюдент
         t_statistic, p_value_ttest = ttest_ind(even_elements, odd_elements)
         p_value_ttest = round(p_value_ttest, 3)
-        print(
-            f'p-значение t-критерия между четными и нечетными элементами {key}: {p_value_ttest}')
 
+        # результирующий массив
+        results_array.append((key, correlation_coefficient, p_value_ttest))
+
+    return results_array
 
 if __name__ == "__main__":
     eel.init('web')
