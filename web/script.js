@@ -201,14 +201,13 @@ function addNewColumn() {
         input.id = "selectedItem" + (columnIndex - 1);
         input.className = "form-control text-right";
         input.setAttribute("aria-label", "Text input with dropdown button");
-        input.placeholder = "Sample " + (columnIndex - 1);
+        input.placeholder = "Сплав " + (columnIndex - 1);
 
         var button = document.createElement("button");
         button.className = "btn btn-outline-secondary dropdown-toggle";
         button.type = "button";
         button.setAttribute("data-bs-toggle", "dropdown");
         button.setAttribute("aria-expanded", "false");
-        button.innerText = "Dropdown";
 
         var ul = document.createElement("ul");
         ul.className = "dropdown-menu dropdown-menu-end";

@@ -1,7 +1,9 @@
 import math
+import re
 import sqlite3
 import eel
-
+import numpy as np
+from scipy.stats import spearmanr
 
 @eel.expose
 def dropdown():
@@ -179,7 +181,7 @@ values_dict = {
 
 # Создание словаря для результатов K_values
 K_values = {f"K{i + 1}": [] for i in range(16)}
-
+K_values2 = {f"K{i + 1}": [] for i in range(16)}
 
 def scientific_notation(number):
     # Проверка на ноль, чтобы избежать ошибки в логарифме
@@ -211,59 +213,77 @@ def add_to_array(*args):
         K1 = calculate_K1(values_dict["lambda"][-1], values_dict["sigma_B"][-1], values_dict["alpha"][-1],
                           values_dict["E"][-1])
         K_values["K1"].append(K1)
+        K_values2["K1"].append(K1)
         K2 = calculate_K2(
             values_dict["lambda"][-1], values_dict["delta"][-1], values_dict["alpha"][-1], values_dict["E"][-1]
         )
         K_values["K2"].append(K2)
+        K_values2["K2"].append(K2)
         K3 = calculate_K3(values_dict["lambda"][-1], values_dict["KSU"][-1], values_dict["alpha"][-1],
                           values_dict["E"][-1])
         K_values["K3"].append(K3)
+        K_values2["K3"].append(K3)
         K4 = calculate_K4(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["alpha"][-1],
                           values_dict["rho"][-1])
         K_values["K4"].append(K4)
+        K_values2["K4"].append(K4)
         K5 = calculate_K5(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
                           values_dict["alpha"][-1], values_dict["E"][-1])
         K_values["K5"].append(K5)
+        K_values2["K5"].append(K5)
         K6 = calculate_K6(values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
                           values_dict["E"][-1])
         K_values["K6"].append(K6)
+        K_values2["K6"].append(K6)
         K7 = calculate_K7(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
                           values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
                           values_dict["E"][-1])
         K_values["K7"].append(K7)
+        K_values2["K7"].append(K7)
         K8 = calculate_K8(values_dict["sigma_B"][-1], values_dict["HRC"][-1], values_dict["E"][-1])
         K_values["K8"].append(K8)
+        K_values2["K8"].append(K8)
         K9 = calculate_K9(values_dict["sigma_0_2"][-1], values_dict["tau"][-1], values_dict["alpha"][-1])
         K_values["K9"].append(K9)
+        K_values2["K9"].append(K9)
         K10 = calculate_K10(values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["alpha"][-1],
                             values_dict["E"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1])
         K_values["K10"].append(K10)
+        K_values2["K10"].append(K10)
         K11 = calculate_K11(values_dict["delta"][-1], values_dict["alpha"][-1], values_dict["mu"][-1],
                             values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["sigma_0_2"][-1],
                             values_dict["E"][-1])
         K_values["K11"].append(K11)
+        K_values2["K11"].append(K11)
         K12 = calculate_K12(values_dict["KSU"][-1], values_dict["sigma_0_2"][-1], values_dict["alpha"][-1],
                             values_dict["t_k"][-1], values_dict["E"][-1])
         K_values["K12"].append(K12)
+        K_values2["K12"].append(K12)
         K13 = calculate_K13(values_dict["sigma_B"][-1], values_dict["psi"][-1], values_dict["sigma_0_2"][-1],
                             values_dict["alpha"][-1], values_dict["t_k"][-1], values_dict["t_f"][-1])
         K_values["K13"].append(K13)
+        K_values2["K13"].append(K13)
         K14 = calculate_K14(values_dict["sigma_B"][-1], values_dict["delta"][-1], values_dict["psi"][-1],
                             values_dict["sigma_0_2"][-1], values_dict["E"][-1], values_dict["alpha"][-1],
                             values_dict["t_k"][-1], values_dict["t_f"][-1])
         K_values["K14"].append(K14)
+        K_values2["K14"].append(K14)
         K15 = calculate_K15(values_dict["sigma_B"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
                             values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
                             values_dict["E"][-1])
         K_values["K15"].append(K15)
+        K_values2["K15"].append(K15)
         K16 = calculate_K16(values_dict["psi"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
                             values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
                             values_dict["E"][-1])
         K_values["K16"].append(K16)
+        K_values2["K16"].append(K16)
 
 
 @eel.expose
 def get_result():
+    # print(K_values2)
+    spearman_correlation(K_values2)
     return tuple([K_values[key][:] for key in K_values])
 
 
@@ -273,7 +293,37 @@ def clear():
         value.clear()
     for value in K_values.values():
         value.clear()
+    for value in K_values2.values():
+        value.clear()
 
+
+def convert_to_float(value):
+    # Extract the coefficient and exponent from the string representation
+    match = re.match(r'([0-9.]+) × 10<sup>([+-]?\d+)</sup>', value)
+    if match:
+        coefficient, exponent = map(float, match.groups())
+        return coefficient * 10 ** exponent
+    else:
+        return float(value)  # If not in scientific notation, convert directly to float
+
+def spearman_correlation(data):
+    # Convert the values in the dictionary
+    for key, values in data.items():
+        data[key] = [convert_to_float(value) for value in values]
+
+    # Рассчитываем коэффициент корреляции Спирмена между четными и нечетными элементами для каждого критерия
+    for key, values in data.items():
+        even_indices = [i for i in range(0, len(values), 2)]
+        odd_indices = [i for i in range(1, len(values), 2)]
+
+        even_elements = [float(values[i]) for i in even_indices]
+        odd_elements = [float(values[i]) for i in odd_indices]
+
+        # print(even_elements)
+        # print(odd_elements)
+        correlation_coefficient, p_value = spearmanr(even_elements, odd_elements)
+        print(
+            f'Коэффициент корреляции Спирмена между четными и нечетными элементами {key}: {correlation_coefficient} {p_value}')
 
 if __name__ == "__main__":
     eel.init('web')
