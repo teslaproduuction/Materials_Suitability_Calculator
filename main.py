@@ -284,11 +284,16 @@ def add_to_array(*args):
 @eel.expose
 def get_result():
     # print(K_values2)
+    K_results = tuple([K_values[key][:] for key in K_values])
+    get_resultR()
+    return K_results
+
+@eel.expose
+def get_resultR():
     R_results = spearman_correlation(K_values2)
     for result in R_results:
         print(result)
-    K_results = tuple([K_values[key][:] for key in K_values])
-    return K_results
+    return R_results
 
 
 @eel.expose
