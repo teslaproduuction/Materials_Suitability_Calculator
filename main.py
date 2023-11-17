@@ -1,8 +1,8 @@
 import math
-import re
 import sqlite3
 import eel
 import numpy as np
+import re
 from scipy.stats import spearmanr
 
 @eel.expose
@@ -298,13 +298,20 @@ def clear():
 
 
 def convert_to_float(value):
+    # Remove HTML markup
+    value = re.sub(r'<sup>([+-]?\d+)</sup>', r'^\1', value)
+
+    # Replace '×' with 'x'
+    value = value.replace('×', 'x')
+
     # Extract the coefficient and exponent from the string representation
-    match = re.match(r'([0-9.]+) × 10<sup>([+-]?\d+)</sup>', value)
+    match = re.match(r'([-+]?\d*\.\d+|\d+) x 10\^([-+]?\d+)', value)
     if match:
         coefficient, exponent = map(float, match.groups())
         return coefficient * 10 ** exponent
     else:
-        return float(value)  # If not in scientific notation, convert directly to float
+        return np.float64(value)
+
 
 def spearman_correlation(data):
     # Convert the values in the dictionary
@@ -319,8 +326,8 @@ def spearman_correlation(data):
         even_elements = [float(values[i]) for i in even_indices]
         odd_elements = [float(values[i]) for i in odd_indices]
 
-        # print(even_elements)
-        # print(odd_elements)
+        print(even_elements)
+        print(odd_elements)
         correlation_coefficient, p_value = spearmanr(even_elements, odd_elements)
         print(
             f'Коэффициент корреляции Спирмена между четными и нечетными элементами {key}: {correlation_coefficient} {p_value}')
