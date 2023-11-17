@@ -41,7 +41,7 @@ function calculate() {
     var rowCount = table.rows.length;
     var columnCount = table.rows[0].cells.length;
 
-    for (var i = 0; i < rowCount-1; i++) {
+    for (var i = 0; i < rowCount - 1; i++) {
         for (var c = 2; c <= columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
@@ -221,7 +221,7 @@ function addNewColumn() {
         table.rows[0].appendChild(headerCell);
         columnIndex++;
     }
-    for (var i = 0; i < rowCount; i++) {
+    for (var i = 0; i < rowCount-1; i++) {
         var row = table.rows[i + 1];
         if (!row) {
             row = table.insertRow(i + 1);
@@ -246,6 +246,7 @@ function removeTwoColumns() {
     // Reload the page after removing columns
     location.reload();
 }
+
 
 // eel.expose(updateDropdown);
 function initializeDropdown(buttonId, menuId) {
@@ -274,7 +275,24 @@ function initializeDropdown(buttonId, menuId) {
             // Add a click event listener to each dropdown item
             link.addEventListener('click', function () {
                 selectedItemInput.value = alloy;
-            });
+                console.log('Значение изменилось:', selectedItemInput.value);
+                eel.dropdown_select(selectedItemInput.value)(function (result) {
+
+
+                    var table = document.getElementById("myTable");
+                    var rowCount = table.rows.length;
+
+                    for (var i = 0; i < rowCount - 1; i++) {
+                        // вывод значения ячейки
+                        var cellId = "row" + (i + 1) + "col" + (parseInt(buttonId.slice(-1)) + 1);
+                        var cellValue = document.getElementById(cellId);
+                        if (cellValue) {
+                            cellValue.value = result[i];
+                        }
+
+                    }
+                });
+            })
 
             listItem.appendChild(link);
             dropdownMenu.appendChild(listItem);
@@ -306,7 +324,9 @@ window.onload = function () {
     initializeDropdown('selectedItem2', 'dropdown-menu2');
     initializeDropdown('selectedItem3', 'dropdown-menu3');
     initializeDropdown('selectedItem4', 'dropdown-menu4');
+
 };
+
 
 // Функция для парсинга данных из HTML
 function parseData() {
@@ -372,3 +392,4 @@ function drawChart() {
         }
     });
 }
+
