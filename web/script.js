@@ -276,14 +276,6 @@ function initializeDropdown(buttonId, menuId) {
             link.addEventListener('click', function () {
                 selectedItemInput.value = alloy;
                 console.log('Значение изменилось:', selectedItemInput.value);
-
-                // def dropdown_select(selected_alloy):
-                //     conn = sqlite3.connect('baza.sl3')
-                //     cursor = conn.cursor()
-                //     cursor.execute("SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?", (selected_alloy,))
-                //     result = cursor.fetchone()
-                //     print(result)
-                //     conn.close()
                 eel.dropdown_select(selectedItemInput.value)(function (result) {
 
 
