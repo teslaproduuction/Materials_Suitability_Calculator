@@ -3,7 +3,8 @@ import sqlite3
 import eel
 import numpy as np
 import re
-from scipy.stats import spearmanr
+from scipy.stats import spearmanr, ttest_rel, ttest_ind
+
 
 @eel.expose
 def dropdown():
@@ -314,11 +315,11 @@ def convert_to_float(value):
 
 #спеарман
 def spearman_correlation(data):
-    # Convert the values in the dictionary
+    # Преобразуем значения в словаре в числа с плавающей точкой
     for key, values in data.items():
         data[key] = [convert_to_float(value) for value in values]
 
-    # Рассчитываем коэффициент корреляции Спирмена между четными и нечетными элементами для каждого критерия
+        # Рассчитываем коэффициент корреляции Спирмена и t-критерий между четными и нечетными элементами для каждого критерия
     for key, values in data.items():
         even_indices = [i for i in range(0, len(values), 2)]
         odd_indices = [i for i in range(1, len(values), 2)]
@@ -328,10 +329,26 @@ def spearman_correlation(data):
 
         print(even_elements)
         print(odd_elements)
-        correlation_coefficient, p_value = spearmanr(even_elements, odd_elements)
+
+        # Рассчитываем коэффициент корреляции Спирмена
+        correlation_coefficient, p_value_spearman = spearmanr(even_elements, odd_elements)
+        correlation_coefficient = round(correlation_coefficient, 1)
         print(
-            f'Коэффициент корреляции Спирмена между четными и нечетными элементами {key}: {correlation_coefficient} {p_value}')
+            f'Коэффициент корреляции Спирмена между четными и нечетными элементами {key}: {correlation_coefficient}')
+
+        # Рассчитываем t-критерий
+        t_statistic, p_value_ttest = ttest_ind(even_elements, odd_elements)
+        p_value_ttest = round(p_value_ttest, 3)
+        print(
+            f'p-значение t-критерия между четными и нечетными элементами {key}: {p_value_ttest}')
+
 
 if __name__ == "__main__":
     eel.init('web')
-    eel.start('index.html', mode='Arc', size=(760, 760))
+    try:
+        eel.start('index.html', size=(800, 900))
+    except OSError as e:
+        if "Can't find Google Chrome/Chromium installation" in str(e):
+            eel.start('index.html', mode="browser")
+        else:
+            print(f"Error: {e}")
