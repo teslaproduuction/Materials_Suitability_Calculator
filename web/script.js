@@ -149,42 +149,63 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
-        var table = "<table class='table'>";
-        table += "<thead><tr><th scope='col'>Номер критерия</th>";
-        for (let i = 0; i < (get_result[0].length / 2); i++) {
-            table += "<th scope='col'>Значение</th>";
-        }
-        table += "</tr></thead>";
-        table += "<tbody>";
+            console.log(get_result[1]);
+            var table = "<table class='table'>";
+            table += "<thead><tr><th scope='col'>Номер критерия</th>";
+            for (let i = 0; i <= (get_result.length / 2); i++) {
+                table += "<th scope='col'>Значение</th>";
+                table += "<th scope='col'>Ранг</th>";
+            }
+            table += "</tr></thead>";
+            table += "<tbody>";
 
-        for (i = 0; i < get_result.length; i++) {
-            table += "<tr>";
-            table += "<th scope='row' rowspan='2'>K" + (i + 1) + "</th>";
-
-            if (get_result[0].length > 2) {
-
-                for (var k = 0; k < get_result[i].length; k = k + 2) {
-                    table += "<td>" + get_result[i][k] + "</td>";
-                }
-                table += "</tr><tr>"
-
-                for (var k = 1; k < get_result[i].length; k = k + 2) {
-                    table += "<td>" + get_result[i][k] + "</td>";
-                }
-                table += "</tr>"
-            } else {
-                table += "<td>" + get_result[i][0] + "</td>";
-                table += "</tr>";
+            for (i = 0; i < get_result[0].length; i++) {
                 table += "<tr>";
-                table += "<td>" + get_result[i][1] + "</td>";
-                table += "</tr>";
+                table += "<th scope='row' rowspan='2'>K" + (i + 1) + "</th>";
+                var rang = 1;
+
+                for (var k = 0; k < get_result[0][i].length; k++) {
+                    console.log(get_result[0][i].length);
+
+                    if (k % 2 === 0) {
+                        // Если k четное, это значение критерия
+                        table += "<td>" + get_result[0][i][k] + "</td>";
+
+                        // Добавление столбца рангов
+                        table += "<td rowspan='2'>" + get_result[1][i][rang] + "</td>";
+                        rang++;
+                    } else {
+                        // Если k нечетное, это значение ранга
+                        table += "<td>" + get_result[0][i][k] + "</td>";
+
+                        // Если k не последнее значение, закрываем строку и открываем новую
+                        if (k < get_result[0][i].length) {
+                            table += "</tr><tr>";
+                        }
+                    }
+                }
+                table += "</tr><tr>";
+
+
+                // else
+                //     {
+                //         table += "<td>" + get_result[0][i][0] + "</td>";
+                //         table += "</tr>";
+                //         table += "<tr>";
+                //         table += "<td>" + get_result[0][i][1] + "</td>";
+                //         // table += "</tr>";
+                //         // table += "<tr>"
+                //         // table += "<td>" + rangs[i][2] + "</td>";
+                //         table += "</tr>"
+                //     }
 
             }
+            table += "</tbody></table>";
+            document.getElementById("result").innerHTML = table;
+            eel.clear()();
         }
-        table += "</tbody></table>";
-        document.getElementById("result").innerHTML = table;
-        eel.clear()();
-    });
+    )
+    ;
 }
 
 function addNewColumn() {
@@ -220,7 +241,7 @@ function addNewColumn() {
         table.rows[0].appendChild(headerCell);
         columnIndex++;
     }
-    for (var i = 0; i < rowCount-1; i++) {
+    for (var i = 0; i < rowCount - 1; i++) {
         var row = table.rows[i + 1];
         if (!row) {
             row = table.insertRow(i + 1);

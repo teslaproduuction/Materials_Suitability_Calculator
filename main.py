@@ -184,6 +184,7 @@ values_dict = {
 K_values = {f"K{i + 1}": [] for i in range(16)}
 K_values2 = {f"K{i + 1}": [] for i in range(16)}
 
+
 def scientific_notation(number):
     # Проверка на ноль, чтобы избежать ошибки в логарифме
     if number == 0:
@@ -285,14 +286,15 @@ def add_to_array(*args):
 def get_result():
     # print(K_values2)
     K_results = tuple([K_values[key][:] for key in K_values])
-    get_resultR()
-    return K_results
+    rangs = spearman_correlation(K_values2)
+    return K_results, rangs
+
 
 @eel.expose
 def get_resultR():
     R_results = spearman_correlation(K_values2)
-    for result in R_results:
-        print(result)
+    # for result in R_results:
+        # print(result)
     return R_results
 
 
@@ -321,7 +323,8 @@ def convert_to_float(value):
     else:
         return np.float64(value)
 
-#спеарман
+
+# спеарман
 def spearman_correlation(data):
     results_array = []  # массив для результатов
 
@@ -348,10 +351,11 @@ def spearman_correlation(data):
 
     return results_array
 
+
 if __name__ == "__main__":
     eel.init('web')
     try:
-        eel.start('index.html', size=(800, 900))
+        eel.start('index.html', mode='Arc', size=(800, 900))
     except OSError as e:
         if "Can't find Google Chrome/Chromium installation" in str(e):
             eel.start('index.html', mode="browser")
