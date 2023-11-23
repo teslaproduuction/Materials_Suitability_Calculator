@@ -291,14 +291,6 @@ def get_result():
 
 
 @eel.expose
-def get_resultR():
-    R_results = spearman_correlation(K_values2)
-    # for result in R_results:
-        # print(result)
-    return R_results
-
-
-@eel.expose
 def clear():
     for value in values_dict.values():
         value.clear()

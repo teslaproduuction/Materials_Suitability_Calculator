@@ -45,7 +45,6 @@ function calculate() {
         for (var c = 2; c <= columnCount; c++) {
             // вывод значения ячейки
             var cellId = "row" + (i + 1) + "col" + c;
-            console.log(cellId)
             var cellValue = document.getElementById(cellId);
             if (cellValue) {
                 cellValue = cellValue.value;
@@ -149,63 +148,44 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
-            console.log(get_result[1]);
-            var table = "<table class='table'>";
-            table += "<thead><tr><th scope='col'>Номер критерия</th>";
-            for (let i = 0; i <= (get_result.length / 2); i++) {
-                table += "<th scope='col'>Значение</th>";
-                table += "<th scope='col'>Ранг</th>";
-            }
-            table += "</tr></thead>";
-            table += "<tbody>";
+        var table = "<table class='table'>";
+        table += "<thead><tr><th scope='col'>Номер критерия</th>";
+        for (let i = 0; i <= (get_result.length / 2); i++) {
+            table += "<th scope='col'>Значение</th>";
+        }
+        table += "</tr></thead>";
+        table += "<tbody>";
 
-            for (i = 0; i < get_result[0].length; i++) {
-                table += "<tr>";
-                table += "<th scope='row' rowspan='2'>K" + (i + 1) + "</th>";
-                var rang = 1;
+        for (i = 0; i < get_result[0].length; i++) {
+            table += "<tr>";
+            table += "<th scope='row' rowspan='2'>K" + (i + 1) + "</th>";
 
+            if (get_result[0][0].length > 2) {
                 for (var k = 0; k < get_result[0][i].length; k++) {
-                    console.log(get_result[0][i].length);
+                    // console.log(get_result[0][i].length);
+                    console.log('get_result[0][i][k]:', get_result[0][i][k]); // вывод значения ячейки
+                    console.log('k', k);
+                    console.log('k%2', k % 2);
+                    table += "<td>" + get_result[0][i][k] + "</td>";
 
-                    if (k % 2 === 0) {
-                        // Если k четное, это значение критерия
-                        table += "<td>" + get_result[0][i][k] + "</td>";
-
-                        // Добавление столбца рангов
-                        table += "<td rowspan='2'>" + get_result[1][i][rang] + "</td>";
-                        rang++;
-                    } else {
-                        // Если k нечетное, это значение ранга
-                        table += "<td>" + get_result[0][i][k] + "</td>";
-
-                        // Если k не последнее значение, закрываем строку и открываем новую
-                        if (k < get_result[0][i].length) {
-                            table += "</tr><tr>";
-                        }
+                    // Если k четное, добавить закрывающий тег </tr> и открыть новую строку <tr>
+                    if (k % 2 === 1) {
+                        table += "</tr><tr>";
                     }
                 }
-                table += "</tr><tr>";
-
-
-                // else
-                //     {
-                //         table += "<td>" + get_result[0][i][0] + "</td>";
-                //         table += "</tr>";
-                //         table += "<tr>";
-                //         table += "<td>" + get_result[0][i][1] + "</td>";
-                //         // table += "</tr>";
-                //         // table += "<tr>"
-                //         // table += "<td>" + rangs[i][2] + "</td>";
-                //         table += "</tr>"
-                //     }
 
             }
-            table += "</tbody></table>";
-            document.getElementById("result").innerHTML = table;
-            eel.clear()();
+            table = table.slice(0, -9);
+            // Добавление столбца рангов
+            table += "<td rowspan='2'>" + get_result[1][i][1] + "</td>";
+            table += "<td rowspan='2'>" + get_result[1][i][2] + "</td>";
+
+            table += "</tr>";
         }
-    )
-    ;
+        table += "</tbody></table>";
+        document.getElementById("result").innerHTML = table;
+        eel.clear()();
+    });
 }
 
 function addNewColumn() {
