@@ -162,10 +162,6 @@ function calculate() {
 
             if (get_result[0][0].length > 2) {
                 for (var k = 0; k < get_result[0][i].length; k++) {
-                    // console.log(get_result[0][i].length);
-                    console.log('get_result[0][i][k]:', get_result[0][i][k]); // вывод значения ячейки
-                    console.log('k', k);
-                    console.log('k%2', k % 2);
                     table += "<td>" + get_result[0][i][k] + "</td>";
 
                     // Если k четное, добавить закрывающий тег </tr> и открыть новую строку <tr>
@@ -175,7 +171,7 @@ function calculate() {
                 }
 
             }
-            table = table.slice(0, -9);
+            table = table.slice(0, -14);
             // Добавление столбца рангов
             table += "<td rowspan='2'>" + get_result[1][i][1] + "</td>";
             table += "<td rowspan='2'>" + get_result[1][i][2] + "</td>";
