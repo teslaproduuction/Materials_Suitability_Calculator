@@ -37,6 +37,7 @@ def dropdown_select(selected_alloy):
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
     result = ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -44,13 +45,14 @@ def calculate_K1(lambda_value, sigma_B, alpha, E):
 # Функция для вычисления К2
 def calculate_K2(lambda_value, delta, alpha, E):
     result = (lambda_value * delta) / ((alpha * 10 ** -6) * E * 10 ** 9) * 10 ** -5
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
-
 
 # Функция для вычисления К3
 def calculate_K3(lambda_value, KSU, alpha, E):
     result = ((lambda_value * (KSU)) / ((alpha * 10 ** -6) * E * 10 ** 9))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -58,6 +60,7 @@ def calculate_K3(lambda_value, KSU, alpha, E):
 # Функция для вычисления К4
 def calculate_K4(lambda_value, c, alpha, rho):
     result = (lambda_value / ((alpha * 10 ** -6) * c * rho)) * 10 ** -2
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -66,6 +69,7 @@ def calculate_K4(lambda_value, c, alpha, rho):
 def calculate_K5(lambda_value, c, rho, alpha, E):
     a = calculate_a(lambda_value, c, rho)
     result = (a / ((alpha * 10 ** -6) * E * 10 ** 9)) * 10 ** -13
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -73,6 +77,7 @@ def calculate_K5(lambda_value, c, rho, alpha, E):
 # Функция для вычисления К6
 def calculate_K6(sigma_B, mu, alpha, E):
     result = ((sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -81,6 +86,7 @@ def calculate_K6(sigma_B, mu, alpha, E):
 def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
     a = calculate_a(lambda_value, c, rho)
     result = (a * (sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -88,6 +94,7 @@ def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
 # Функция для вычисления К8
 def calculate_K8(sigma_B, HRC, E):
     result = (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -95,15 +102,16 @@ def calculate_K8(sigma_B, HRC, E):
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
     result = (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
-
 
 # Функция для вычисления К10
 def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
     delta_t = calculate_delta_t(t_k, t_f)
     sigma_0_2_t_max = calculate_sigma_0_2_t_max(alpha, E, delta_t, mu)
     result = sigma_0_2_t_max / sigma_0_2
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -113,22 +121,28 @@ def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     delta_t = calculate_delta_t(t_k, t_f)
     result = (delta / (2 * (
             ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
-
 
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
     result = (KSU / (sigma_0_2 * 10 ** -6 * (
             ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
+
+
+
+
 
 
 # Функция для вычисления К13
 def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
     delta_t = calculate_delta_t(t_k, t_f)
     result = (((sigma_B * 10 ** 6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -138,9 +152,9 @@ def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
     delta_t = calculate_delta_t(t_k, t_f)
     result = ((((sigma_B * 10 ** 6) * (1 + delta + psi) - sigma_0_2 * 10 ** 6) / (
             E * 10 ** 9 * (alpha * 10 ** -6 * delta_t) ** 2)))
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
-
 
 # Функция для вычисления К15
 def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
@@ -149,6 +163,7 @@ def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
     denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * (
             (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
     result = ((numerator / denominator) ** 2)  # *10**3
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -159,6 +174,7 @@ def calculate_K16(psi, alpha, t_k, t_f, mu, sigma_0_2, E):
     numerator = math.log(1 / (1 - psi))
     denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
     result = (numerator / denominator)
+    result = abs(result)
     scientific, mantissa = scientific_notation(result)
     return scientific, result, mantissa
 
@@ -361,12 +377,12 @@ def plot_and_save_graph(data, output_filename='graph.png'):
     num_values = len(values[0])  # Предполагаем, что все столбцы имеют одинаковую длину
 
     for i in range(num_values):
-        plt.plot(criteria, [values[j][i] for j in range(len(criteria))], label=f'Value {i + 1}')
+        plt.plot(criteria, [values[j][i] for j in range(len(criteria))], label=f'Сплав {i + 1}')
 
     plt.xlabel('Критерии')
     plt.ylabel('Значения')
     plt.legend(loc='upper left')
-    plt.ylim(-10, 10)  # Установите диапазон значений по вертикали
+    plt.ylim(1, 10)  # Установите диапазон значений по вертикали
     plt.title('График значений для каждого критерия')
 
     # Сохранение графика в файл PNG
