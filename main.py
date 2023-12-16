@@ -23,7 +23,7 @@ def dropdown():
 
 @eel.expose
 def dropdown_select(selected_alloy):
-    conn = sqlite3.connect('baza.sl3')
+    conn = sqlite3.connect('BAZA.sl3')
     cursor = conn.cursor()
     cursor.execute(
         "SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?",
