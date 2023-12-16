@@ -370,14 +370,21 @@ def clear():
 #   return np.float64(value)
 
 
+
+
+
+import seaborn as sns
+
 def plot_and_save_graph(data, output_filename='graph.png'):
     criteria = list(data.keys())
     values = list(data.values())
 
     num_values = len(values[0])  # Предполагаем, что все столбцы имеют одинаковую длину
 
+    sns.set(style="whitegrid")  # Устанавливаем стиль сетки seaborn для более гладких графиков
+
     for i in range(num_values):
-        plt.plot(criteria, [values[j][i] for j in range(len(criteria))], label=f'Сплав {i + 1}')
+        sns.lineplot(x=criteria, y=[values[j][i] for j in range(len(criteria))], label=f'Сплав {i + 1}', marker='o', markersize=8, linewidth=2)
 
     plt.xlabel('Критерии')
     plt.ylabel('Значения')
