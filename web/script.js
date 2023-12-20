@@ -16,6 +16,14 @@ var tkValues = [];
 var tfValues = [];
 var data = [];
 
+document.getElementById('myForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevents the default form submission
+
+    // Add your validation logic here, if needed
+
+    // Call the calculate function
+    calculate();
+});
 
 function calculate() {
     cValues = [];
@@ -225,9 +233,18 @@ function addNewColumn() {
             var cell = row.insertCell(-1);
             var input = document.createElement("input");
             input.type = "number";
-            input.min = "0";
+            if (i + 1 === 10 || i + 1 === 11 || i + 1 === 12 || i + 1 === 13) {
+                input.min = "0.0001";
+                input.max = "1";
+                input.step = "0.0001";
+            } else {
+                input.min = "0.0001";
+                input.max = "10000";
+                input.step = "0.0001";
+            }
             input.className = "form-control text-right";
             input.id = "row" + (i + 1) + "col" + (columnIndex - 2 + j);
+            input.required = " ";
             cell.appendChild(input);
 
             initializeDropdown('selectedItem' + (columnIndex - 3 + j), 'dropdown-menu' + (columnIndex - 3 + j));
