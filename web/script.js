@@ -373,8 +373,12 @@ function createChart(data) {
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            // в labels писать названия сплавов
-            labels: Object.keys(data[Object.keys(data)[0]]),
+            // в labels писать типа сплав №1
+            labels: Object.keys(data[Object.keys(data)[0]])
+                .map(function (key) {
+                    return 'Сплав №' + (parseInt(key) + 1);
+                }),
+
             datasets: Object.keys(data).map(function (key) {
                 return {
                     label: key,
