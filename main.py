@@ -1,8 +1,6 @@
 import math
 import sqlite3
 import eel
-import numpy as np
-import re
 from scipy.stats import spearmanr, ttest_rel, ttest_ind
 import matplotlib.pyplot as plt
 
