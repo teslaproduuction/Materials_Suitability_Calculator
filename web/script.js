@@ -379,7 +379,8 @@ function createChart(data) {
                 return {
                     label: key,
                     data: data[key],
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    // на каждый критерий свой цвет
+                    borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
                     borderWidth: 2,
                     fill: false
                 };
