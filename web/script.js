@@ -150,7 +150,7 @@ function calculate() {
     eel.get_result()(function (get_result) {
         var table = "<table class='table'>";
         table += "<thead><tr><th scope='col'>Номер критерия</th>";
-        for (let i = 0; i <= (get_result.length / 2); i++) {
+        for (let i = 0; i < (get_result[0][0].length / 2); i++) {
             table += "<th scope='col'>Значение</th>";
         }
         table += "</tr></thead>";
@@ -161,22 +161,17 @@ function calculate() {
             table += "<th scope='row' rowspan='2'>K" + (i + 1) + "</th>";
 
             if (get_result[0][0].length > 2) {
-                for (var k = 0; k < get_result[0][i].length; k++) {
+                for (var k = 0; k < get_result[0][i].length; k = k + 2) {
                     table += "<td>" + get_result[0][i][k] + "</td>";
-
-                    // Если k четное, добавить закрывающий тег </tr> и открыть новую строку <tr>
-                    if (k % 2 === 1) {
-                        table += "</tr><tr>";
-                    }
                 }
+                table += "<td>" + get_result[1][i][1] + "</td>";
+                table += "</tr><tr>";
 
+                for (var k = 1; k < get_result[0][i].length; k = k + 2) {
+                    table += "<td>" + get_result[0][i][k] + "</td>";
+                }
+                table += "<td>" + get_result[1][i][2] + "</td></tr>";
             }
-            table = table.slice(0, -14);
-            // Добавление столбца рангов
-            table += "<td rowspan='2'>" + get_result[1][i][1] + "</td>";
-            table += "<td rowspan='2'>" + get_result[1][i][2] + "</td>";
-
-            table += "</tr>";
         }
         table += "</tbody></table>";
         document.getElementById("result").innerHTML = table;
@@ -353,7 +348,15 @@ function parseData() {
 
 // Функция для построения графика
 function drawChart() {
-    const data = parseData(); // Получаем данные из HTML
+
+
+    const data = eel.get_result()(function (get_result) {
+        console.log('get_result', get_result);
+        console.log('get_result[0]', get_result[0]);
+        console.log('get_result[0][0]', get_result[0][0]);
+        console.log('get_result[0][0][0]', get_result[0][0][0]);
+        return get_result;
+    });
 
     const ctx = document.getElementById('myChart').getContext('2d');
 

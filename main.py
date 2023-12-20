@@ -27,7 +27,7 @@ def dropdown_select(selected_alloy):
         "SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?",
         (selected_alloy,))
     result = cursor.fetchone()
-    print(result)
+    # print(result)
     conn.close()
     return result
 
@@ -334,8 +334,9 @@ def get_result():
     print(K_values3)
     K_results = tuple([K_values[key][:] for key in K_values])
     rangs = spearman_correlation(K_values2)
-    plot_and_save_graph(K_values3, output_filename='graph.png')
-    return K_results, rangs
+    # plot_and_save_graph(K_values3, output_filename='graph.png')
+    print(K_results)
+    return K_results, rangs, K_values3
 
 
 @eel.expose
