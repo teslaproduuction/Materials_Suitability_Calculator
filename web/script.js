@@ -16,12 +16,9 @@ var tkValues = [];
 var tfValues = [];
 var data = [];
 
+// База чтобы submit не руинил страницу
 document.getElementById('myForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevents the default form submission
-
-    // Add your validation logic here, if needed
-
-    // Call the calculate function
     calculate();
 });
 

@@ -359,53 +359,6 @@ def clear():
     for value in K_values3.values():
         value.clear()
 
-
-# def convert_to_float(value):
-
-# print(value)
-# Remove HTML markup
-# value = re.sub(r'<sup>([+-]?\d+)</sup>', r'^\1', value)
-#
-# # Replace '×' with 'x'
-# value = value.replace('×', 'x')
-#
-# # Extract the coefficient and exponent from the string representation
-# match = re.match(r'([-+]?\d*\.\d+|\d+) x 10\^([-+]?\d+)', value)
-# if match:
-#     coefficient, exponent = map(float, match.groups())
-#     return coefficient * 10 ** exponent
-# else:
-#   return np.float64(value)
-
-
-import seaborn as sns
-
-
-def plot_and_save_graph(data, output_filename='graph.png'):
-    criteria = list(data.keys())
-    values = list(data.values())
-
-    num_values = len(values[0])  # Предполагаем, что все столбцы имеют одинаковую длину
-
-    sns.set(style="whitegrid")  # Устанавливаем стиль сетки seaborn для более гладких графиков
-
-    for i in range(num_values):
-        sns.lineplot(x=criteria, y=[values[j][i] for j in range(len(criteria))], label=f'Сплав {i + 1}', marker='o',
-                     markersize=8, linewidth=2)
-
-    plt.xlabel('Критерии')
-    plt.ylabel('Значения')
-    plt.legend(loc='upper left')
-    plt.ylim(1, 10)  # Установите диапазон значений по вертикали
-    plt.title('График значений для каждого критерия')
-
-    # Сохранение графика в файл PNG
-    plt.savefig(output_filename, bbox_inches='tight')
-
-    # Отображение графика
-    plt.show()
-
-
 # спеарман
 def spearman_correlation(data):
     results_array = []  # массив для результатов
