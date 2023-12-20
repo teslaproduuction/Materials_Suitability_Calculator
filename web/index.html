@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="css/docs.css">
     <title>Калькулятор пригодности материалов</title>
     <meta charset="UTF-8">
-
+    <style>
+        #myChart {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div class="container" id="main">
@@ -187,12 +191,12 @@
     </form>
     <button type="button" onclick="calculate()" class="btn btn-outline-primary">Рассчитать</button>
     <button type="button" onclick="addNewColumn()" class="btn btn-outline-success">Добавить столбец</button>
-    <button type="button" onclick="removeTwoColumns()" class="btn btn-outline-danger">Убрать столбец</button>
+    <button type="button" onclick="removeTwoColumns()" class="btn btn-outline-danger">Очистить</button>
     <button onclick="drawChart()" type="button" class="btn btn-outline-info">Построить график</button>
 
 
     <!-- Место для графика -->
-    <canvas id="myChart" style="max-height: 250px"></canvas>
+    <canvas id="myChart" style="max-height: 300px"></canvas>
 
 
     <div id="result" style="display: none;" class="container">
@@ -203,5 +207,6 @@
 <script src="js/chart.js"></script>
 <script src="/eel.js"></script>
 <script src="script.js"></script>
+<script src="js/chartjs-plugin-zoom.js"></script>
 </body>
 </html>

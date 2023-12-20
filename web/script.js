@@ -177,7 +177,7 @@ function calculate() {
         }
         table += "</tbody></table>";
         document.getElementById("result").innerHTML = table;
-        console.log("Data:", data);
+        console.log("Data1:", data);
         eel.clear()();
     });
 }
@@ -322,81 +322,88 @@ window.onload = function () {
 };
 
 
-// Функция для парсинга данных из HTML
-function parseData() {
-    const labels = [];
-    const values1 = [];
-    const values2 = [];
-
-    const rows = document.querySelectorAll('tbody tr');
-    let currentLabel = '';
-
-    rows.forEach((row, index) => {
-        const cells = row.querySelectorAll('th, td');
-        if (cells.length === 1) {
-            currentLabel = cells[0].textContent.trim();
-        } else {
-            labels.push(currentLabel);
-            values1.push(parseFloat(cells[0].textContent.trim().replace('× 10^', 'e')));
-            values2.push(parseFloat(cells[1].textContent.trim().replace('× 10^', 'e')));
-        }
-    });
-
-    return {
-        labels,
-        values1,
-        values2
-    };
-}
-
 // Функция для построения графика
+var myChart; // Объявляем переменную myChart глобально, чтобы иметь доступ из функции drawChart
+
 function drawChart() {
     try {
-        const dataObject = JSON.parse(data)
+        const dataObject = JSON.parse(data);
         console.log('Данные:', dataObject);
-        var criteriaData = {};
 
-        Object.keys(dataObject).forEach(function (key) {
-            criteriaData[key] = dataObject[key];
-        });
+        // Проверяем, существует ли график и является ли экземпляром Chart
+        if (myChart instanceof Chart) {
+            myChart.destroy();
+        }
+
+        // Показываем область графика
+        document.getElementById('myChart').style.display = 'block';
 
         // Вызываем функцию createChart только после успешного получения данных
-        createChart(criteriaData);
+        createChart(dataObject);
     } catch (error) {
         console.error('Ошибка при разборе JSON:', error);
     }
 }
 
-
 function createChart(data) {
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            // в labels писать типа сплав №1
-            labels: Object.keys(data[Object.keys(data)[0]])
-                .map(function (key) {
-                    return 'Сплав №' + (parseInt(key) + 1);
-                }),
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-            datasets: Object.keys(data).map(function (key) {
-                return {
-                    label: key,
-                    data: data[key],
-                    // на каждый критерий свой цвет
-                    borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
-                    borderWidth: 2,
-                    fill: false
-                };
-            })
-        },
+    var initialData = {
+        labels: Object.keys(data),
+        datasets: Object.keys(data[Object.keys(data)[0]]).map(function (key, index) {
+            return {
+                label: 'Сплав ' + (index + 1),
+                data: Object.keys(data).map(function (criterion) {
+                    return data[criterion][index];
+                }),
+                borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
+                borderWidth: 2,
+                fill: false,
+                pointStyle: 'circle',
+                pointRadius: 8
+            };
+        })
+    };
+
+    myChart = new Chart(ctx, {
+        type: 'line',
+        data: initialData,
         options: {
             scales: {
+                x: {
+                    type: 'category',
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    max: 10
                 }
-            }
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            plugins: {
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy'
+                    }
+                }
+            },
         }
     });
 }
 
+// Не инициализируем график при загрузке страницы
+// drawChart();
