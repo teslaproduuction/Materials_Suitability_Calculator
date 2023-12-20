@@ -14,6 +14,7 @@ var muValues = [];
 var tauValues = [];
 var tkValues = [];
 var tfValues = [];
+var data = [];
 
 
 function calculate() {
@@ -148,6 +149,7 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
+        data = get_result[2];
         var table = "<table class='table'>";
         table += "<thead><tr><th scope='col'>Номер критерия</th>";
         for (let i = 0; i < (get_result[0][0].length / 2); i++) {
@@ -175,7 +177,7 @@ function calculate() {
         }
         table += "</tbody></table>";
         document.getElementById("result").innerHTML = table;
-        console.log("Data:", get_result[2]);
+        console.log("Data:", data);
         eel.clear()();
     });
 }
@@ -349,39 +351,39 @@ function parseData() {
 
 // Функция для построения графика
 function drawChart() {
+    try {
+        const dataObject = JSON.parse(data)
+        console.log('Данные:', dataObject);
+        var criteriaData = {};
+
+        Object.keys(dataObject).forEach(function (key) {
+            criteriaData[key] = dataObject[key];
+        });
+
+        // Вызываем функцию createChart только после успешного получения данных
+        createChart(criteriaData);
+    } catch (error) {
+        console.error('Ошибка при разборе JSON:', error);
+    }
+}
 
 
-    const data = eel.get_result()(function (get_result) {
-        console.log('get_result', get_result);
-        console.log('get_result[0]', get_result[0]);
-        console.log('get_result[0][0]', get_result[0][0]);
-        console.log('get_result[0][0][0]', get_result[0][0][0]);
-        return get_result;
-    });
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-
-    const chart = new Chart(ctx, {
+function createChart(data) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-
-            labels: data.labels,
-            datasets: [
-                {
-                    label: 'Значения 1',
-                    data: data.values1,
-                    fill: false,
+            // в labels писать названия сплавов
+            labels: Object.keys(data[Object.keys(data)[0]]),
+            datasets: Object.keys(data).map(function (key) {
+                return {
+                    label: key,
+                    data: data[key],
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2
-                },
-                {
-                    label: 'Значения 2',
-                    data: data.values2,
-                    fill: false,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2
-                }
-            ]
+                    borderWidth: 2,
+                    fill: false
+                };
+            })
         },
         options: {
             scales: {
