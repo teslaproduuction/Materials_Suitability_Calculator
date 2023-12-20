@@ -334,9 +334,10 @@ def get_result():
     print(K_values3)
     K_results = tuple([K_values[key][:] for key in K_values])
     rangs = spearman_correlation(K_values2)
+    Data = tuple([K_values3[key][:] for key in K_values3])
     # plot_and_save_graph(K_values3, output_filename='graph.png')
     print(K_results)
-    return K_results, rangs, K_values3
+    return K_results, rangs, Data
 
 
 @eel.expose

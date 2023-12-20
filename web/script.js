@@ -175,6 +175,7 @@ function calculate() {
         }
         table += "</tbody></table>";
         document.getElementById("result").innerHTML = table;
+        console.log("Data:", get_result[2]);
         eel.clear()();
     });
 }
