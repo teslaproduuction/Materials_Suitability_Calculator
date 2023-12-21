@@ -1,118 +1,273 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="stylesheet" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.css.map">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css.map">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css.map">
-    <link rel="stylesheet" href="css/bootstrap-utilities.css">
-    <link rel="stylesheet" href="css/bootstrap-utilities.css.map">
-    <link rel="stylesheet" href="css/bootstrap-utilities.min.css">
-    <link rel="stylesheet" href="css/bootstrap-utilities.min.css.map">
-    <link rel="stylesheet" href="css/bootstrap.css.map">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <title>potom</title>
+    <link rel="stylesheet" href="css/docs.css">
+    <title>Калькулятор пригодности материалов</title>
+    <meta charset="UTF-8">
+    <style>
+        #myChart {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<body>
-<div class="container">
+<div class="container" id="main">
     <h2>Ввод значений</h2>
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="cValues">с, Дж/(кг×°С) </label>
-                <input type="text" class="form-control" id="cValues" placeholder="с, Дж/(кг×°С) ">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="lambdaValues">Lambda Values</label>
-                <input type="text" class="form-control" id="lambdaValues" placeholder="Enter lambda values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="rhoValues">Rho Values</label>
-                <input type="text" class="form-control" id="rhoValues" placeholder="Enter rho values">
-            </div>
-        </div>
+    <form id="myForm">
+        <table class="table" id="myTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem1" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 1">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu1">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+                <!-- Повторите блок для каждого столбца -->
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem2" type="text" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 1">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu2">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+                <!-- ... Повторите блок для каждого столбца ... -->
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem3" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu3">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="alphaValues">Alpha Values</label>
-                <input type="text" class="form-control" id="alphaValues" placeholder="Enter alpha values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="EValues">E Values</label>
-                <input type="text" class="form-control" id="EValues" placeholder="Enter E values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="HRCValues">HRC Values</label>
-                <input type="text" class="form-control" id="HRCValues" placeholder="Enter HRC values">
-            </div>
-        </div>
+                <th>
+                    <div class="input-group mb-3">
+                        <input id="selectedItem4" type="text" class="form-control text-right"
+                               aria-label="Text input with dropdown button" placeholder="Сплав 2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu4">
+                            <!-- Ваши элементы выпадающего списка могут быть добавлены сюда -->
+                        </ul>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>с, Дж/(кг×°С)</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row1col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row1col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row1col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row1col5" ></td>
+            </tr>
+            <tr>
+                <td>λ, Вт/(м × °С)</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row2col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row2col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row2col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row2col5" ></td>
+            </tr>
+            <tr>
+                <td>ρ, кг/м³</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row3col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row3col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row3col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row3col5" ></td>
+            </tr>
+            <tr>
+                <td>α*10⁻⁶, 1/°С</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required="" step="0.1"
+                           class="form-control text-right" id="row4col2" >
+                </td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row4col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required="" step="0.1"
+                           class="form-control text-right" id="row4col4" >
+                </td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row4col5" ></td>
+            </tr>
+            <tr>
+                <td>Е, ГПа</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row5col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row5col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row5col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row5col5" ></td>
+            </tr>
+            <tr>
+                <td>HRC, ед</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row6col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row6col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row6col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row6col5" ></td>
+            </tr>
+            <tr>
+                <td>𝞼B</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row7col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row7col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row7col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row7col5" ></td>
+            </tr>
+            <tr>
+                <td>Sigma 0.2 Values</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row8col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row8col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row8col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row8col5" ></td>
+            </tr>
+            <tr>
+                <td>KCU, Дж/см²</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row9col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row9col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row9col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row9col5" ></td>
+            </tr>
+            <tr>
+                <td>δ, %</td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row10col2" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row10col3" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row10col4" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row10col5" ></td>
 
-        <div class="form-row">
-            <!-- Добавьте аналогичные блоки для остальных полей -->
-            <!-- Пример для sigma_B_values -->
-            <div class="form-group col-md-4">
-                <label for="sigmaBValues">Sigma B Values</label>
-                <input type="text" class="form-control" id="sigmaBValues" placeholder="Enter sigma B values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="sigma02Values">Sigma 0.2 Values</label>
-                <input type="text" class="form-control" id="sigma02Values" placeholder="Enter sigma 0.2 values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="KSUValues">KSU Values</label>
-                <input type="text" class="form-control" id="KSUValues" placeholder="Enter KSU values">
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td>ψ, %</td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row11col2" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row11col3" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row11col4" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row11col5" ></td>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="deltaValues">Delta Values</label>
-                <input type="text" class="form-control" id="deltaValues" placeholder="Enter delta values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="psiValues">ψ, %</label>
-                <input type="text" class="form-control" id="psiValues" placeholder="ψ, %">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="muValues">Mu Values</label>
-                <input type="text" class="form-control" id="muValues" placeholder="Enter mu values">
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td>µ</td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row12col2" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row12col3" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row12col4" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row12col5" ></td>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="tauValues">Tau Values</label>
-                <input type="text" class="form-control" id="tauValues" placeholder="Enter tau values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="tkValues">t_k Values</label>
-                <input type="text" class="form-control" id="tkValues" placeholder="Enter t_k values">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="tfValues">t_f Values</label>
-                <input type="text" class="form-control" id="tfValues" placeholder="Enter t_f values">
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td>τ, мин</td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row13col2" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row13col3" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row13col4" ></td>
+                <td><input type="number" min="0.0001" max="1" step="0.0001" required="" class="form-control text-right"
+                           id="row13col5" ></td>
+            </tr>
+            <tr>
+                <td>t_k Values</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row14col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row14col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row14col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row14col5" ></td>
+            </tr>
+            <tr>
+                <td>t_f Values</td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row15col2" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row15col3" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row15col4" ></td>
+                <td><input type="number" min="0.0001" max="10000" step="0.0001" required=""
+                           class="form-control text-right" id="row15col5" ></td>
+            </tr>
+            </tbody>
+        </table>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="input-group mb-3">
+            <button type="submit" class="btn btn-outline-primary">Рассчитать</button>
+            <button type="button" onclick="addNewColumn()" class="btn btn-outline-success">Добавить столбец</button>
+            <button type="button" onclick="removeTwoColumns()" class="btn btn-outline-danger">Очистить</button>
+            <button onclick="drawChart()" type="button" class="btn btn-outline-info">Построить график</button>
+        </div>
     </form>
+    <!-- Место для графика -->
+    <canvas id="myChart" style="max-height: 300px"></canvas>
+
+
+    <div id="result" style="display: none;" class="container">
+    </div>
 </div>
-
-
-<script src="js/bootstrap.bundle.js"></script>
-<script src="js/bootstrap.esm.js.map"></script>
-<script src="js/bootstrap.js"></script>
-<script>
-    function getSquare() {
-        var number = document.getElementById("number").value;
-        eel.get_square_result(number)(function (result) {
-            document.getElementById("result").innerText = "Result: " + result;
-        });
-    }
-</script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="/eel.js"></script>
+<script src="script.js"></script>
+<script src="js/chartjs-plugin-zoom.js"></script>
 </body>
 </html>
