@@ -41,7 +41,7 @@
 | 3 | $K_{3}=\lambda \cdot K C U / \alpha \cdot E$ | 11 | $K_{11}=\frac{\delta}{2\left[\alpha \cdot \Delta t /(1-\mu)-\left(2 \sigma_{0,2} / E\right)\right]}$ |
 | 4 | $K_{4}=\lambda / \alpha \cdot c \cdot \rho$ | 12 | $K_{12}=\frac{K C U}{\sigma_{0,2} \cdot\left(\alpha \cdot t_{\kappa}-2 \sigma_{0,2} / E\right)}$ |
 | 5 | $K_{5}=a / \alpha \cdot E$ | 13 | $K_{13}=\frac{\sigma_{B} \cdot \psi}{\sigma_{0,2} \cdot\left(1-\psi^{2}\right) \alpha \cdot \Delta t}$ |
-| 6 | $K_{6}=\sigma_{B} \cdot(1-\mu) / \alpha \cdot E$ | 14 | $K_{14}=\left[\frac{\sigma_{B} \cdot(1+\delta+\psi)-\sigma_{0,2}}{E \cdot(\alpha \cdot \Delta t)^{2}}\right.$ |
+| 6 | $K_{6}=\sigma_{B} \cdot(1-\mu) / \alpha \cdot E$ | 14 | $K_{14}= \frac{\sigma_{B} \cdot (1+\delta+\psi) - \sigma_{0,2}}{E \cdot (\alpha \cdot \Delta t)^{2}}$ |
 | 7 | $K_{7}=a \cdot \sigma_{B} \cdot(1-\mu) / \alpha \cdot E$ | 15 | $K_{15}=\left(\frac{\sigma_{B}-\alpha \cdot \Delta t \cdot E / 1-\mu}{\frac{\sigma_{0,2}}{E}+\frac{\alpha \cdot \Delta t}{1-\mu} \cdot \frac{\alpha \cdot \Delta t \cdot E}{1-\mu}}\right)$ |
 | 8 | $K_{8}=\sigma_{B} / H R C \cdot E$ | 16 | $K_{16}=\frac{\ln \frac{100}{100-\psi}}{2 \cdot \frac{\alpha \cdot \Delta t}{1-\mu}-4 \cdot \frac{\sigma_{0,2}}{E}}$ |
 
