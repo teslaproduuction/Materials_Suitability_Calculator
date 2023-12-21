@@ -3,7 +3,7 @@ import math
 import sqlite3
 
 import eel
-import matplotlib.pyplot as plt
+
 from scipy.stats import spearmanr, ttest_ind
 
 globals()['flag'] = False
@@ -479,7 +479,7 @@ def spearman_correlation(data):
 if __name__ == "__main__":
     eel.init('web')
     try:
-        eel.start('index.html', mode='Arc', size=(800, 900))
+        eel.start('index.html', size=(800, 900))
     except OSError as e:
         if "Can't find Google Chrome/Chromium installation" in str(e):
             eel.start('index.html', mode="browser")
