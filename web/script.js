@@ -375,7 +375,7 @@ function createChart(data) {
                 borderWidth: 2,
                 fill: false,
                 pointStyle: 'circle',
-                pointRadius: 8
+                pointRadius: 3
             };
         })
     };
