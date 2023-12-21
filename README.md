@@ -1,7 +1,7 @@
 # Materials_Suitability_Calculator
 Калькулятор пригодности материалов
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/teslaproduuction/Calculation_of_the_heat_balance/blob/master/README_EN.md)
-[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/teslaproduuction/Calculation_of_the_heat_balance/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/teslaproduuction/Materials_Suitability_Calculator/blob/master/README_EN.md)
+[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/teslaproduuction/Materials_Suitability_Calculator/blob/master/README.md)
 
 ## Описание проекта
 
@@ -23,7 +23,7 @@
 
 Для скачивания скомпилированной версии приложения, следуйте этим шагам:
 
-1. Перейдите на страницу "Releases" (Релизы) в репозитории на GitHub или воспользуйтесь ссылкой .
+1. Перейдите на страницу "Releases" (Релизы) в репозитории на GitHub или воспользуйтесь ссылкой [релиз](https://github.com/teslaproduuction/Materials_Suitability_Calculator/releases/).
 
 2. Найдите последний релиз, в котором доступна скомпилированная версия приложения.
 
