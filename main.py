@@ -19,87 +19,105 @@ def dropdown():
         alloys = [row[0] for row in result]
         conn.close()
         return alloys
-    except Exception as e:
-        return str(e)
+    except:
+        get_result(flag=True)
 
 
 @eel.expose
 def dropdown_select(selected_alloy):
-    conn = sqlite3.connect('BAZA.sl3')
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?",
-        (selected_alloy,))
-    result = cursor.fetchone()
-    conn.close()
-    return result
-
+    try:
+        conn = sqlite3.connect('BAZA.sl3')
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT c, lambda, rho, alpha, E, HRC, sigma_B, sigma_0_2, KSU, delta, psi, mu, tau, t_k, t_f FROM Сплавы WHERE name=?",
+            (selected_alloy,))
+        result = cursor.fetchone()
+        conn.close()
+        return result
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
-    result = ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = ((lambda_value * (sigma_B * 10 ** 6)) / ((alpha * 10 ** (-6)) * E * 10 ** 9))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К2
 def calculate_K2(lambda_value, delta, alpha, E):
-    result = (lambda_value * delta) / ((alpha * 10 ** -6) * E * 10 ** 9) * 10 ** -5
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = (lambda_value * delta) / ((alpha * 10 ** -6) * E * 10 ** 9) * 10 ** -5
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К3
 def calculate_K3(lambda_value, KSU, alpha, E):
-    result = ((lambda_value * (KSU)) / ((alpha * 10 ** -6) * E * 10 ** 9))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = ((lambda_value * (KSU)) / ((alpha * 10 ** -6) * E * 10 ** 9))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К4
 def calculate_K4(lambda_value, c, alpha, rho):
-    result = (lambda_value / ((alpha * 10 ** -6) * c * rho)) * 10 ** -2
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = (lambda_value / ((alpha * 10 ** -6) * c * rho)) * 10 ** -2
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К5
 def calculate_K5(lambda_value, c, rho, alpha, E):
-    a = calculate_a(lambda_value, c, rho)
-    result = (a / ((alpha * 10 ** -6) * E * 10 ** 9)) * 10 ** -13
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        a = calculate_a(lambda_value, c, rho)
+        result = (a / ((alpha * 10 ** -6) * E * 10 ** 9)) * 10 ** -13
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К6
 def calculate_K6(sigma_B, mu, alpha, E):
-    result = ((sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = ((sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К7
 def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
-    a = calculate_a(lambda_value, c, rho)
-    result = (a * (sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        a = calculate_a(lambda_value, c, rho)
+        result = (a * (sigma_B * 10 ** 6) * (1 - mu)) / ((alpha * 10 ** -6) * E * 10 ** 9)
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К8
 def calculate_K8(sigma_B, HRC, E):
-    result = (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = (sigma_B * 10 ** 6) / (HRC * (E * 10 ** 9))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
@@ -110,6 +128,7 @@ def calculate_K9(sigma_0_2, tau, alpha):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К10
 def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
@@ -126,64 +145,76 @@ def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
 
 # Функция для вычисления К11
 def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
-    delta_t = calculate_delta_t(t_k, t_f)
-    result = (delta / (2 * (
-            ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        result = (delta / (2 * (
+                ((alpha * 10 ** -6 * delta_t) / (1 - mu)) - ((2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9)))))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
-    result = (KSU / (sigma_0_2 * 10 ** -6 * (
-            ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = (KSU / (sigma_0_2 * 10 ** -6 * (
+                ((alpha * 10 ** -6) * t_k) - (2 * (sigma_0_2 * 10 ** 6)) / (E * 10 ** 9))))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К13
 def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
-    delta_t = calculate_delta_t(t_k, t_f)
-    result = (((sigma_B * 10 ** 6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        result = (((sigma_B * 10 ** 6) * psi) / (sigma_0_2 * (1 - (psi ** 2)) * alpha * delta_t))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К14
 def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
-    delta_t = calculate_delta_t(t_k, t_f)
-    result = ((((sigma_B * 10 ** 6) * (1 + delta + psi) - sigma_0_2 * 10 ** 6) / (
-            E * 10 ** 9 * (alpha * 10 ** -6 * delta_t) ** 2)))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        result = ((((sigma_B * 10 ** 6) * (1 + delta + psi) - sigma_0_2 * 10 ** 6) / (
+                E * 10 ** 9 * (alpha * 10 ** -6 * delta_t) ** 2)))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К15
 def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
-    delta_t = calculate_delta_t(t_k, t_f)
-    numerator = (sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu))
-    denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * (
-            (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
-    result = ((numerator / denominator) ** 2)  # *10**3
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        numerator = (sigma_B * 10 ** 6 - alpha * 10 ** -6 * delta_t * E * 10 ** 9 / (1 - mu))
+        denominator = (((sigma_0_2 * 10 ** 6) / (E * 10 ** 9)) + ((alpha * 10 ** -6 * delta_t) / (1 - mu)) * (
+                (alpha * 10 ** -6 * delta_t * E * 10 ** 9) / (1 - mu)))
+        result = ((numerator / denominator) ** 2)  # *10**3
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К16
 def calculate_K16(psi, alpha, t_k, t_f, mu, sigma_0_2, E):
-    delta_t = calculate_delta_t(t_k, t_f)
-    numerator = math.log(1 / (1 - psi))
-    denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
-    result = (numerator / denominator)
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        numerator = math.log(1 / (1 - psi))
+        denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
+        result = (numerator / denominator)
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Вычисление sigma_0_2_t_max и delta_t
 def calculate_delta_t(t_k, t_f):
@@ -304,12 +335,14 @@ def add_to_array(*args):
             K_values2["K10"].append(K10E)
             K_values3["K10"].append(K10M)
             K11, K11E, K11M = calculate_K11(values_dict["delta"][-1], values_dict["alpha"][-1], values_dict["mu"][-1],
-                                            values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["sigma_0_2"][-1],
+                                            values_dict["t_k"][-1], values_dict["t_f"][-1],
+                                            values_dict["sigma_0_2"][-1],
                                             values_dict["E"][-1])
             K_values["K11"].append(K11)
             K_values2["K11"].append(K11E)
             K_values3["K11"].append(K11M)
-            K12, K12E, K12M = calculate_K12(values_dict["KSU"][-1], values_dict["sigma_0_2"][-1], values_dict["alpha"][-1],
+            K12, K12E, K12M = calculate_K12(values_dict["KSU"][-1], values_dict["sigma_0_2"][-1],
+                                            values_dict["alpha"][-1],
                                             values_dict["t_k"][-1], values_dict["E"][-1])
             K_values["K12"].append(K12)
             K_values2["K12"].append(K12E)
@@ -320,13 +353,16 @@ def add_to_array(*args):
             K_values["K13"].append(K13)
             K_values2["K13"].append(K13E)
             K_values3["K13"].append(K13M)
-            K14, K14E, K14M = calculate_K14(values_dict["sigma_B"][-1], values_dict["delta"][-1], values_dict["psi"][-1],
-                                            values_dict["sigma_0_2"][-1], values_dict["E"][-1], values_dict["alpha"][-1],
+            K14, K14E, K14M = calculate_K14(values_dict["sigma_B"][-1], values_dict["delta"][-1],
+                                            values_dict["psi"][-1],
+                                            values_dict["sigma_0_2"][-1], values_dict["E"][-1],
+                                            values_dict["alpha"][-1],
                                             values_dict["t_k"][-1], values_dict["t_f"][-1])
             K_values["K14"].append(K14)
             K_values2["K14"].append(K14E)
             K_values3["K14"].append(K14M)
-            K15, K15E, K15M = calculate_K15(values_dict["sigma_B"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
+            K15, K15E, K15M = calculate_K15(values_dict["sigma_B"][-1], values_dict["alpha"][-1],
+                                            values_dict["t_k"][-1],
                                             values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
                                             values_dict["E"][-1])
             K_values["K15"].append(K15)
@@ -347,6 +383,7 @@ def get_result(flag=None):
     if flag == True:
         clear()
         return None, None, None, flag
+        print("Ошибка")
     else:
         try:
             print("Исходные данные:", K_values3)
@@ -367,7 +404,6 @@ def get_result(flag=None):
             return None, None, None, flag
 
 
-
 @eel.expose
 def clear():
     for value in values_dict.values():
@@ -378,6 +414,7 @@ def clear():
         value.clear()
     for value in K_values3.values():
         value.clear()
+
 
 # спеарман
 def spearman_correlation(data):
