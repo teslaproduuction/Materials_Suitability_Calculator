@@ -1,7 +1,7 @@
 # Materials Suitability Calculator
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/teslaproduuction/Calculation_of_the_heat_balance/blob/master/README_EN.md)
-[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/teslaproduuction/Calculation_of_the_heat_balance/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/teslaproduuction/Materials_Suitability_Calculator/blob/master/README_EN.md)
+[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/teslaproduuction/Materials_Suitability_Calculator/blob/master/README.md)
 
 ## Project Description
 
@@ -23,7 +23,7 @@ In addition to the option of using the application's source code directly from t
 
 To download the compiled version of the application, follow these steps:
 
-1. Go to the "Releases" page in the GitHub repository or use the following [link](provide_link_here).
+1. Go to the "Releases" page in the GitHub repository or use the following [релиз](https://github.com/teslaproduuction/Materials_Suitability_Calculator/releases).
 
 2. Find the latest release where the compiled version of the application is available.
 
