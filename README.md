@@ -44,3 +44,6 @@
 | 7 | $K_{7}=a \cdot \sigma_{B} \cdot(1-\mu) / \alpha \cdot E$ | 15 | $K_{15}=\left(\frac{\sigma_{B}-\alpha \cdot \Delta t \cdot E / 1-\mu}{\frac{\sigma_{0,2}}{E}+\frac{\alpha \cdot \Delta t}{1-\mu} \cdot \frac{\alpha \cdot \Delta t \cdot E}{1-\mu}}\right)$ |
 | 8 | $K_{8}=\sigma_{B} / H R C \cdot E$ | 16 | $K_{16}=\frac{\ln \frac{100}{100-\psi}}{2 \cdot \frac{\alpha \cdot \Delta t}{1-\mu}-4 \cdot \frac{\sigma_{0,2}}{E}}$ |
 
+## Пример
+![image](https://github.com/teslaproduuction/Materials_Suitability_Calculator/assets/117762137/1a49b0b9-f6a9-4305-ae80-40984860dc1d)
+
