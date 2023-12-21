@@ -41,8 +41,6 @@ function calculate() {
 
     // очистка div с тегом result
     document.getElementById("result").innerHTML = "";
-
-
     var table = document.getElementById("myTable");
     var rowCount = table.rows.length;
     var columnCount = table.rows[0].cells.length;
@@ -154,6 +152,13 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
+
+        flag = get_result[3];
+        console.log("flag:", flag);
+        if (flag === true) {
+            alert("Произошла ошибка. Проверьте введенные данные.");
+            return;
+        }
         data = get_result[2];
         var table = "<table class='table'>";
         table += "<thead><tr><th scope='col'>Номер критерия</th>";

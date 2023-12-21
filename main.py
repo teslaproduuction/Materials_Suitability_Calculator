@@ -6,6 +6,8 @@ import eel
 import matplotlib.pyplot as plt
 from scipy.stats import spearmanr, ttest_ind
 
+globals()['flag'] = False
+
 
 @eel.expose
 def dropdown():
@@ -101,20 +103,25 @@ def calculate_K8(sigma_B, HRC, E):
 
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
-    result = (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
-
+    try:
+        result = (sigma_0_2 * 10 ** 6) / (tau * (alpha * 10 ** -6))
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 # Функция для вычисления К10
 def calculate_K10(t_k, t_f, alpha, E, mu, sigma_0_2):
-    delta_t = calculate_delta_t(t_k, t_f)
-    sigma_0_2_t_max = calculate_sigma_0_2_t_max(alpha, E, delta_t, mu)
-    result = sigma_0_2_t_max / sigma_0_2
-    result = abs(result)
-    scientific, mantissa = scientific_notation(result)
-    return scientific, result, mantissa
+    try:
+        delta_t = calculate_delta_t(t_k, t_f)
+        sigma_0_2_t_max = calculate_sigma_0_2_t_max(alpha, E, delta_t, mu)
+        result = sigma_0_2_t_max / sigma_0_2
+        result = abs(result)
+        scientific, mantissa = scientific_notation(result)
+        return scientific, result, mantissa
+    except:
+        get_result(flag=True)
 
 
 # Функция для вычисления К11
@@ -235,117 +242,130 @@ def scientific_notation(number):
 
 @eel.expose
 def add_to_array(*args):
-    values = [float(arg) for arg in args]
+    try:
+        values = [float(arg) for arg in args]
 
-    num_values_per_set = 15
-    sets_of_values = [values[i:i + num_values_per_set] for i in range(0, len(values), num_values_per_set)]
+        num_values_per_set = 15
+        sets_of_values = [values[i:i + num_values_per_set] for i in range(0, len(values), num_values_per_set)]
 
-    for set_values in sets_of_values:
-        keys = list(values_dict.keys())
-        for i, key in enumerate(keys):
-            values_dict[key].append(set_values[i])
+        for set_values in sets_of_values:
+            keys = list(values_dict.keys())
+            for i, key in enumerate(keys):
+                values_dict[key].append(set_values[i])
 
-        K1, K1E, K1M = calculate_K1(values_dict["lambda"][-1], values_dict["sigma_B"][-1], values_dict["alpha"][-1],
-                                    values_dict["E"][-1])
-        K_values["K1"].append(K1)
-        K_values2["K1"].append(K1E)
-        K_values3["K1"].append(K1M)
-        K2, K2E, K2M = calculate_K2(values_dict["lambda"][-1], values_dict["delta"][-1], values_dict["alpha"][-1],
-                                    values_dict["E"][-1]
-                                    )
-        K_values["K2"].append(K2)
-        K_values2["K2"].append(K2E)
-        K_values3["K2"].append(K2M)
-        K3, K3E, K3M = calculate_K3(values_dict["lambda"][-1], values_dict["KSU"][-1], values_dict["alpha"][-1],
-                                    values_dict["E"][-1])
-        K_values["K3"].append(K3)
-        K_values2["K3"].append(K3E)
-        K_values3["K3"].append(K3M)
-        K4, K4E, K4M = calculate_K4(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["alpha"][-1],
-                                    values_dict["rho"][-1])
-        K_values["K4"].append(K4)
-        K_values2["K4"].append(K4E)
-        K_values3["K4"].append(K4M)
-        K5, K5E, K5M = calculate_K5(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
-                                    values_dict["alpha"][-1], values_dict["E"][-1])
-        K_values["K5"].append(K5)
-        K_values2["K5"].append(K5E)
-        K_values3["K5"].append(K5M)
-        K6, K6E, K6M = calculate_K6(values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
-                                    values_dict["E"][-1])
-        K_values["K6"].append(K6)
-        K_values2["K6"].append(K6E)
-        K_values3["K6"].append(K6M)
-        K7, K7E, K7M = calculate_K7(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
-                                    values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
-                                    values_dict["E"][-1])
-        K_values["K7"].append(K7)
-        K_values2["K7"].append(K7E)
-        K_values3["K7"].append(K7M)
-        K8, K8E, K8M = calculate_K8(values_dict["sigma_B"][-1], values_dict["HRC"][-1], values_dict["E"][-1])
-        K_values["K8"].append(K8)
-        K_values2["K8"].append(K8E)
-        K_values3["K8"].append(K8M)
-        K9, K9E, K9M = calculate_K9(values_dict["sigma_0_2"][-1], values_dict["tau"][-1], values_dict["alpha"][-1])
-        K_values["K9"].append(K9)
-        K_values2["K9"].append(K9E)
-        K_values3["K9"].append(K9M)
-        K10, K10E, K10M = calculate_K10(values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["alpha"][-1],
-                                        values_dict["E"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1])
-        K_values["K10"].append(K10)
-        K_values2["K10"].append(K10E)
-        K_values3["K10"].append(K10M)
-        K11, K11E, K11M = calculate_K11(values_dict["delta"][-1], values_dict["alpha"][-1], values_dict["mu"][-1],
-                                        values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["sigma_0_2"][-1],
+            K1, K1E, K1M = calculate_K1(values_dict["lambda"][-1], values_dict["sigma_B"][-1], values_dict["alpha"][-1],
                                         values_dict["E"][-1])
-        K_values["K11"].append(K11)
-        K_values2["K11"].append(K11E)
-        K_values3["K11"].append(K11M)
-        K12, K12E, K12M = calculate_K12(values_dict["KSU"][-1], values_dict["sigma_0_2"][-1], values_dict["alpha"][-1],
-                                        values_dict["t_k"][-1], values_dict["E"][-1])
-        K_values["K12"].append(K12)
-        K_values2["K12"].append(K12E)
-        K_values3["K12"].append(K12M)
-        K13, K13E, K13M = calculate_K13(values_dict["sigma_B"][-1], values_dict["psi"][-1],
-                                        values_dict["sigma_0_2"][-1],
-                                        values_dict["alpha"][-1], values_dict["t_k"][-1], values_dict["t_f"][-1])
-        K_values["K13"].append(K13)
-        K_values2["K13"].append(K13E)
-        K_values3["K13"].append(K13M)
-        K14, K14E, K14M = calculate_K14(values_dict["sigma_B"][-1], values_dict["delta"][-1], values_dict["psi"][-1],
-                                        values_dict["sigma_0_2"][-1], values_dict["E"][-1], values_dict["alpha"][-1],
-                                        values_dict["t_k"][-1], values_dict["t_f"][-1])
-        K_values["K14"].append(K14)
-        K_values2["K14"].append(K14E)
-        K_values3["K14"].append(K14M)
-        K15, K15E, K15M = calculate_K15(values_dict["sigma_B"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
-                                        values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
+            K_values["K1"].append(K1)
+            K_values2["K1"].append(K1E)
+            K_values3["K1"].append(K1M)
+            K2, K2E, K2M = calculate_K2(values_dict["lambda"][-1], values_dict["delta"][-1], values_dict["alpha"][-1],
+                                        values_dict["E"][-1]
+                                        )
+            K_values["K2"].append(K2)
+            K_values2["K2"].append(K2E)
+            K_values3["K2"].append(K2M)
+            K3, K3E, K3M = calculate_K3(values_dict["lambda"][-1], values_dict["KSU"][-1], values_dict["alpha"][-1],
                                         values_dict["E"][-1])
-        K_values["K15"].append(K15)
-        K_values2["K15"].append(K15E)
-        K_values3["K15"].append(K15M)
-        K16, K16E, K16M = calculate_K16(values_dict["psi"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
-                                        values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
+            K_values["K3"].append(K3)
+            K_values2["K3"].append(K3E)
+            K_values3["K3"].append(K3M)
+            K4, K4E, K4M = calculate_K4(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["alpha"][-1],
+                                        values_dict["rho"][-1])
+            K_values["K4"].append(K4)
+            K_values2["K4"].append(K4E)
+            K_values3["K4"].append(K4M)
+            K5, K5E, K5M = calculate_K5(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
+                                        values_dict["alpha"][-1], values_dict["E"][-1])
+            K_values["K5"].append(K5)
+            K_values2["K5"].append(K5E)
+            K_values3["K5"].append(K5M)
+            K6, K6E, K6M = calculate_K6(values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
                                         values_dict["E"][-1])
-        K_values["K16"].append(K16)
-        K_values2["K16"].append(K16E)
-        K_values3["K16"].append(K16M)
+            K_values["K6"].append(K6)
+            K_values2["K6"].append(K6E)
+            K_values3["K6"].append(K6M)
+            K7, K7E, K7M = calculate_K7(values_dict["lambda"][-1], values_dict["c"][-1], values_dict["rho"][-1],
+                                        values_dict["sigma_B"][-1], values_dict["mu"][-1], values_dict["alpha"][-1],
+                                        values_dict["E"][-1])
+            K_values["K7"].append(K7)
+            K_values2["K7"].append(K7E)
+            K_values3["K7"].append(K7M)
+            K8, K8E, K8M = calculate_K8(values_dict["sigma_B"][-1], values_dict["HRC"][-1], values_dict["E"][-1])
+            K_values["K8"].append(K8)
+            K_values2["K8"].append(K8E)
+            K_values3["K8"].append(K8M)
+            K9, K9E, K9M = calculate_K9(values_dict["sigma_0_2"][-1], values_dict["tau"][-1], values_dict["alpha"][-1])
+            K_values["K9"].append(K9)
+            K_values2["K9"].append(K9E)
+            K_values3["K9"].append(K9M)
+            K10, K10E, K10M = calculate_K10(values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["alpha"][-1],
+                                            values_dict["E"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1])
+            K_values["K10"].append(K10)
+            K_values2["K10"].append(K10E)
+            K_values3["K10"].append(K10M)
+            K11, K11E, K11M = calculate_K11(values_dict["delta"][-1], values_dict["alpha"][-1], values_dict["mu"][-1],
+                                            values_dict["t_k"][-1], values_dict["t_f"][-1], values_dict["sigma_0_2"][-1],
+                                            values_dict["E"][-1])
+            K_values["K11"].append(K11)
+            K_values2["K11"].append(K11E)
+            K_values3["K11"].append(K11M)
+            K12, K12E, K12M = calculate_K12(values_dict["KSU"][-1], values_dict["sigma_0_2"][-1], values_dict["alpha"][-1],
+                                            values_dict["t_k"][-1], values_dict["E"][-1])
+            K_values["K12"].append(K12)
+            K_values2["K12"].append(K12E)
+            K_values3["K12"].append(K12M)
+            K13, K13E, K13M = calculate_K13(values_dict["sigma_B"][-1], values_dict["psi"][-1],
+                                            values_dict["sigma_0_2"][-1],
+                                            values_dict["alpha"][-1], values_dict["t_k"][-1], values_dict["t_f"][-1])
+            K_values["K13"].append(K13)
+            K_values2["K13"].append(K13E)
+            K_values3["K13"].append(K13M)
+            K14, K14E, K14M = calculate_K14(values_dict["sigma_B"][-1], values_dict["delta"][-1], values_dict["psi"][-1],
+                                            values_dict["sigma_0_2"][-1], values_dict["E"][-1], values_dict["alpha"][-1],
+                                            values_dict["t_k"][-1], values_dict["t_f"][-1])
+            K_values["K14"].append(K14)
+            K_values2["K14"].append(K14E)
+            K_values3["K14"].append(K14M)
+            K15, K15E, K15M = calculate_K15(values_dict["sigma_B"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
+                                            values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
+                                            values_dict["E"][-1])
+            K_values["K15"].append(K15)
+            K_values2["K15"].append(K15E)
+            K_values3["K15"].append(K15M)
+            K16, K16E, K16M = calculate_K16(values_dict["psi"][-1], values_dict["alpha"][-1], values_dict["t_k"][-1],
+                                            values_dict["t_f"][-1], values_dict["mu"][-1], values_dict["sigma_0_2"][-1],
+                                            values_dict["E"][-1])
+            K_values["K16"].append(K16)
+            K_values2["K16"].append(K16E)
+            K_values3["K16"].append(K16M)
+    except:
+        get_result(flag=True)
 
 
 @eel.expose
-def get_result():
-    print("Исходные данные:", K_values3)
-    K_results = tuple([K_values[key][:] for key in K_values])
-    rangs = spearman_correlation(K_values2)
+def get_result(flag=None):
+    if flag == True:
+        clear()
+        return None, None, None, flag
+    else:
+        try:
+            print("Исходные данные:", K_values3)
+            K_results = tuple([K_values[key][:] for key in K_values])
+            rangs = spearman_correlation(K_values2)
 
-    # Заменяем NaN значения на None
-    K_values3_no_nan = {key: [value if not math.isnan(value) else None for value in values] for key, values in
-                        K_values3.items()}
-    print("Данные после обработки:", K_values3_no_nan)
+            # Заменяем NaN значения на None
+            K_values3_no_nan = {key: [value if not math.isnan(value) else None for value in values] for key, values in
+                                K_values3.items()}
+            print("Данные после обработки:", K_values3_no_nan)
 
-    # Преобразуем данные в JSON
-    data_json = json.dumps(K_values3_no_nan)
-    return K_results, rangs, data_json
+            # Преобразуем данные в JSON
+            data_json = json.dumps(K_values3_no_nan)
+            return K_results, rangs, data_json, flag
+        except:
+            clear()
+            flag = True
+            return None, None, None, flag
+
 
 
 @eel.expose
