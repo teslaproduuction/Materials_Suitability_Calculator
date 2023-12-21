@@ -37,6 +37,7 @@ def dropdown_select(selected_alloy):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К1
 def calculate_K1(lambda_value, sigma_B, alpha, E):
     try:
@@ -46,6 +47,7 @@ def calculate_K1(lambda_value, sigma_B, alpha, E):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К2
 def calculate_K2(lambda_value, delta, alpha, E):
@@ -57,6 +59,7 @@ def calculate_K2(lambda_value, delta, alpha, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К3
 def calculate_K3(lambda_value, KSU, alpha, E):
     try:
@@ -67,6 +70,7 @@ def calculate_K3(lambda_value, KSU, alpha, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К4
 def calculate_K4(lambda_value, c, alpha, rho):
     try:
@@ -76,6 +80,7 @@ def calculate_K4(lambda_value, c, alpha, rho):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К5
 def calculate_K5(lambda_value, c, rho, alpha, E):
@@ -88,6 +93,7 @@ def calculate_K5(lambda_value, c, rho, alpha, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К6
 def calculate_K6(sigma_B, mu, alpha, E):
     try:
@@ -97,6 +103,7 @@ def calculate_K6(sigma_B, mu, alpha, E):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К7
 def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
@@ -109,6 +116,7 @@ def calculate_K7(lambda_value, c, rho, sigma_B, mu, alpha, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К8
 def calculate_K8(sigma_B, HRC, E):
     try:
@@ -118,6 +126,7 @@ def calculate_K8(sigma_B, HRC, E):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К9
 def calculate_K9(sigma_0_2, tau, alpha):
@@ -155,6 +164,7 @@ def calculate_K11(delta, alpha, mu, t_k, t_f, sigma_0_2, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К12
 def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
     try:
@@ -165,6 +175,7 @@ def calculate_K12(KSU, sigma_0_2, alpha, t_k, E):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К13
 def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
@@ -177,6 +188,7 @@ def calculate_K13(sigma_B, psi, sigma_0_2, alpha, t_k, t_f):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К14
 def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
     try:
@@ -188,6 +200,7 @@ def calculate_K14(sigma_B, delta, psi, sigma_0_2, E, alpha, t_k, t_f):
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Функция для вычисления К15
 def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
@@ -203,18 +216,21 @@ def calculate_K15(sigma_B, alpha, t_k, t_f, mu, sigma_0_2, E):
     except:
         get_result(flag=True)
 
+
 # Функция для вычисления К16
 def calculate_K16(psi, alpha, t_k, t_f, mu, sigma_0_2, E):
     try:
         delta_t = calculate_delta_t(t_k, t_f)
         numerator = math.log(1 / (1 - psi))
-        denominator = ((2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
+        denominator = (
+                    (2 * (((alpha * 10 ** -6) * delta_t) / (1 - mu))) - (4 * ((sigma_0_2 * 10 ** 6) / (E * 10 ** 9))))
         result = (numerator / denominator)
         result = abs(result)
         scientific, mantissa = scientific_notation(result)
         return scientific, result, mantissa
     except:
         get_result(flag=True)
+
 
 # Вычисление sigma_0_2_t_max и delta_t
 def calculate_delta_t(t_k, t_f):
@@ -380,28 +396,40 @@ def add_to_array(*args):
 
 @eel.expose
 def get_result(flag=None):
-    if flag == True:
-        clear()
-        return None, None, None, flag
-        print("Ошибка")
-    else:
-        try:
-            print("Исходные данные:", K_values3)
-            K_results = tuple([K_values[key][:] for key in K_values])
-            rangs = spearman_correlation(K_values2)
-
-            # Заменяем NaN значения на None
-            K_values3_no_nan = {key: [value if not math.isnan(value) else None for value in values] for key, values in
-                                K_values3.items()}
-            print("Данные после обработки:", K_values3_no_nan)
-
-            # Преобразуем данные в JSON
-            data_json = json.dumps(K_values3_no_nan)
-            return K_results, rangs, data_json, flag
-        except:
+    try:
+        if flag is True:
             clear()
-            flag = True
+            print(flag)
             return None, None, None, flag
+            eel.alert('')
+        else:
+                print('куда', flag)
+
+                print("Исходные данные:", K_values3)
+                K_results = tuple([K_values[key][:] for key in K_values])
+                rangs = spearman_correlation(K_values2)
+
+                # Заменяем NaN значения на None
+                K_values3_no_nan = {key: [value if not math.isnan(value) else None for value in values] for key, values
+                                    in
+                                    K_values3.items()}
+                print("Данные после обработки:", K_values3_no_nan)
+
+                #проверить на пустые значения {'K1': [], 'K2': [], 'K3': [], 'K4': [], 'K5': [], 'K6': [], 'K7': [], 'K8': [], 'K9': [], 'K10': [], 'K11': [], 'K12': [], 'K13': [], 'K14': [],
+                #'K15': [], 'K16': []}
+                for key, values in K_values3_no_nan.items():
+                    if len(values) == 0:
+                        clear()
+                        flag = True
+                        print('пусто', flag)
+                        return None, None, None, flag
+
+                data_json = json.dumps(K_values3_no_nan)
+                return K_results, rangs, data_json, flag
+    except:
+        clear()
+        flag = True
+        return None, None, None, flag
 
 
 @eel.expose
@@ -418,30 +446,34 @@ def clear():
 
 # спеарман
 def spearman_correlation(data):
-    results_array = []  # массив для результатов
+    try:
+        results_array = []  # массив для результатов
 
-    for key, values in data.items():
-        values_float = [float(value) for value in values]
+        for key, values in data.items():
+            values_float = [float(value) for value in values]
 
-        half_length = len(values_float) // 2
-        even_elements = values_float[:half_length]
-        odd_elements = values_float[half_length:]
+            half_length = len(values_float) // 2
+            even_elements = values_float[:half_length]
+            odd_elements = values_float[half_length:]
 
-        # print("even", even_elements)
-        # print("odd", odd_elements)
-        # Спирмен
-        correlation_coefficient, p_value_spearman = spearmanr(even_elements, odd_elements)
-        correlation_coefficient = round(correlation_coefficient, 1)
-        if math.isnan(correlation_coefficient):
-            correlation_coefficient = 'недостаточно данных'
-        # Стьюдент
-        t_statistic, p_value_ttest = ttest_ind(even_elements, odd_elements)
-        p_value_ttest = round(p_value_ttest, 3)
+            # print("even", even_elements)
+            # print("odd", odd_elements)
+            # Спирмен
+            correlation_coefficient, p_value_spearman = spearmanr(even_elements, odd_elements)
+            correlation_coefficient = round(correlation_coefficient, 1)
+            if math.isnan(correlation_coefficient):
+                correlation_coefficient = 'недостаточно данных'
+            # Стьюдент
+            t_statistic, p_value_ttest = ttest_ind(even_elements, odd_elements)
+            p_value_ttest = round(p_value_ttest, 3)
 
-        # результирующий массив
-        results_array.append((key, correlation_coefficient, p_value_ttest))
+            # результирующий массив
+            results_array.append((key, correlation_coefficient, p_value_ttest))
 
-    return results_array
+        return results_array
+    except:
+        print("Ошибка")
+        get_result(flag=True)
 
 
 if __name__ == "__main__":

@@ -152,14 +152,17 @@ function calculate() {
     }
 
     eel.get_result()(function (get_result) {
-
+    try {
         flag = get_result[3];
         console.log("flag:", flag);
         if (flag === true) {
+            console.log("Предупреждение:", flag);
             alert("Произошла ошибка. Проверьте введенные данные.");
             return;
         }
+
         data = get_result[2];
+
         var table = "<table class='table'>";
         table += "<thead><tr><th scope='col'>Номер критерия</th>";
         for (let i = 0; i < (get_result[0][0].length / 2); i++) {
@@ -189,7 +192,11 @@ function calculate() {
         document.getElementById("result").innerHTML = table;
         console.log("Data1:", data);
         eel.clear()();
-    });
+    } catch (error) {
+        console.error("An error occurred:", error);
+        alert("Произошла ошибка. Проверьте введенные данные.");
+    }
+});
 }
 
 function addNewColumn() {
