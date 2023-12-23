@@ -27,7 +27,7 @@ To download the compiled version of the application, follow these steps:
 
 2. Find the latest release where the compiled version of the application is available.
 
-3. In the "Assets" section, find and download the file with the extension corresponding to your operating system (e.g., .exe for Windows, .app for macOS (coming soon), or .tar.gz for Linux).
+3. In the "Assets" section, find and download the file with the extension corresponding to your operating system (e.g., .exe for Windows, .tar.gz for Linux).
 
 4. After the download is complete, install or run the application according to the instructions for your operating system.
 
